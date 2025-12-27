@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Pakaian Adat Jambi - Custom Adat Jambi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B0000;
+            --secondary: #D4AF37;
+            --accent: #FFD700;
+            --light: #FFF8F0;
+            --dark: #2C1810;
+            --text: #333333;
+            --shadow: rgba(139, 0, 0, 0.15);
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient: linear-gradient(135deg, #8B0000 0%, #B22222 50%, #8B0000 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Gallery Hero */
+        .gallery-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 100px 20px 80px;
+            background: linear-gradient(rgba(44, 24, 16, 0.9), rgba(139, 0, 0, 0.85)),
+                url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+
+        .gallery-hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .gallery-hero h1 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .gallery-hero p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 40px;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(139, 0, 0, 0.4);
+        }
+
+        .btn i {
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .btn:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 100px 0;
+            background-color: white;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 3.2rem;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .section-title h2::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Gallery Filters */
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 60px;
+        }
+
+        .filter-btn {
+            padding: 14px 30px;
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            color: var(--primary);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .filter-btn:hover::before,
+        .filter-btn.active::before {
+            left: 0;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 35px;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            position: relative;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.7));
+            z-index: 1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-20px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(139, 0, 0, 0.2);
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+
+        .gallery-info {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+            background: white;
+        }
+
+        .gallery-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .gallery-desc {
+            color: var(--text);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .gallery-price {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.5rem;
+            text-align: right;
+        }
+
+        .gallery-category {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+
+        /* Popup Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .jenis-adat-modal {
+            background: white;
+            border-radius: 25px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            animation: modalSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-header {
+            background: var(--gradient);
+            padding: 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .modal-header h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        /* Jenis Adat Modal Content */
+        .jenis-adat-content {
+            padding: 40px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .jenis-adat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .jenis-adat-item {
+            background: #f9f5f0;
+            border-radius: 15px;
+            padding: 25px;
+            transition: var(--transition);
+            border-left: 5px solid var(--primary);
+            cursor: pointer;
+        }
+
+        .jenis-adat-item:hover {
+            transform: translateY(-5px);
+            background: var(--primary);
+            color: white;
+        }
+
+        .jenis-adat-item:hover h4,
+        .jenis-adat-item:hover p {
+            color: white;
+        }
+
+        .jenis-adat-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .jenis-adat-item p {
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 1000px;
+            }
+
+            .gallery-hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 3rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                max-width: 750px;
+            }
+
+            .gallery-hero h1 {
+                font-size: 3rem;
+            }
+
+            .gallery-hero p {
+                font-size: 1.3rem;
+            }
+
+            .gallery-section {
+                padding: 80px 0;
+            }
+
+            .section-title h2 {
+                font-size: 2.8rem;
+            }
+
+            .jenis-adat-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 30px;
+            }
+
+            .gallery-hero {
+                padding: 100px 30px 60px;
+            }
+
+            .gallery-hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .gallery-hero p {
+                font-size: 1.2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .gallery-item {
+                height: auto;
+            }
+
+            .jenis-adat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 25px;
+            }
+
+            .gallery-hero {
+                padding: 90px 25px 50px;
+            }
+
+            .gallery-hero h1 {
+                font-size: 2.4rem;
+            }
+
+            .gallery-hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+
+            .gallery-filters {
+                gap: 10px;
+            }
+
+            .filter-btn {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+            }
+
+            .jenis-adat-content {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Include Navbar -->
+    <div id="navbar-container"></div>
+
+    <!-- Gallery Hero -->
+    <section class="gallery-hero">
+        <div class="container">
+            <div class="gallery-hero-content">
+                <h1>Galeri Koleksi Eksklusif</h1>
+                <p>Jelajahi koleksi pakaian adat Jambi terbaik kami. Setiap karya dibuat dengan detail sempurna oleh
+                    pengrajin berpengalaman.</p>
+                <button class="btn" id="heroJenisAdat" style="margin-top: 30px;">
+                    <i class="fas fa-tshirt"></i> Lihat Semua Jenis Adat
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Koleksi Pakaian Adat</h2>
+                <p>Pilih dari berbagai kategori koleksi pakaian adat Jambi yang kami tawarkan. Setiap karya dibuat
+                    dengan detail yang sempurna.</p>
+            </div>
+
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">Semua Kategori</button>
+                <button class="filter-btn" data-filter="pakaian-adat">Pakaian Adat</button>
+                <button class="filter-btn" data-filter="jas">Jas Tradisional</button>
+                <button class="filter-btn" data-filter="aksesoris">Aksesoris</button>
+                <button class="filter-btn" data-filter="pernikahan">Pernikahan</button>
+                <button class="filter-btn" data-filter="anak">Pakaian Anak</button>
+            </div>
+
+            <div class="gallery-grid" id="galleryContainer">
+                <!-- Items akan diisi oleh JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Include Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Jenis Adat Modal -->
+    <div class="modal-overlay" id="jenisAdatModal">
+        <div class="jenis-adat-modal">
+            <div class="modal-header">
+                <h3>Jenis-Jenis Pakaian Adat Jambi</h3>
+                <button class="close-modal" id="closeJenisAdatModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="jenis-adat-content">
+                <div class="jenis-adat-grid" id="jenisAdatContainer">
+                    <!-- Items akan diisi oleh JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load navbar and footer
+        document.addEventListener('DOMContentLoaded', function () {
+            // Load navbar
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                    // Reinitialize navbar scripts
+                    initNavbarScripts();
+                    // Update active link
+                    updateActiveNavLink();
+                });
+
+            // Load footer
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-container').innerHTML = data;
+                    // Reinitialize footer scripts
+                    initFooterScripts();
+                });
+        });
+
+        // Data jenis pakaian adat Jambi (40 jenis)
+        const jenisAdat = [
+            { id: 1, name: "Baju Kurung Tanggung", description: "Pakaian adat utama wanita Jambi dengan bentuk kurung longgar" },
+            { id: 2, name: "Teluk Belanga", description: "Pakaian adat pria Jambi berupa kemeja panjang dengan kain songket" },
+            { id: 3, name: "Baju Kurung Cekak Musang", description: "Varian baju kurung dengan leher cekak musang" },
+            { id: 4, name: "Baju Kurung Kebaya Pendek", description: "Perpaduan kurung dengan kebaya pendek" },
+            { id: 5, name: "Baju Kurung Lengan Pendek", description: "Baju kurung dengan lengan pendek untuk cuaca panas" },
+            { id: 6, name: "Baju Kurung Modern", description: "Baju kurung dengan sentuhan modern dan kontemporer" },
+            { id: 7, name: "Baju Kurung Pengantin", description: "Baju kurung khusus untuk pengantin wanita" },
+            { id: 8, name: "Baju Kurung Anak Perempuan", description: "Baju kurung mini untuk anak perempuan" },
+            { id: 9, name: "Baju Kurung Lansia", description: "Baju kurung dengan desain nyaman untuk lansia" },
+            { id: 10, name: "Baju Kurung Harian", description: "Baju kurung sederhana untuk penggunaan sehari-hari" },
+            { id: 11, name: "Teluk Belanga Mewah", description: "Teluk belanga dengan kain songket premium" },
+            { id: 12, name: "Teluk Belanga Sederhana", description: "Teluk belanga versi sederhana untuk acara informal" },
+            { id: 13, name: "Teluk Belanga Anak Laki-laki", description: "Teluk belanga ukuran anak-anak" },
+            { id: 14, name: "Teluk Belanga Pengantin", description: "Teluk belanga lengkap untuk pengantin pria" },
+            { id: 15, name: "Jas Tutup Tradisional", description: "Jas tutup dengan motif khas Jambi" },
+            { id: 16, name: "Jas Tutup Mewah", description: "Jas tutup dengan bahan premium dan detail sulaman" },
+            { id: 17, name: "Jas Tutup Modern", description: "Jas tutup dengan desain modern namun tradisional" },
+            { id: 18, name: "Jas Tutup Pernikahan", description: "Jas tutup khusus untuk acara pernikahan" },
+            { id: 19, name: "Jas Tutup Acara Resmi", description: "Jas tutup untuk acara resmi dan kenegaraan" },
+            { id: 20, name: "Kain Songket Jambi", description: "Kain songket tradisional dengan motif khas" },
+            { id: 21, name: "Selendang Songket", description: "Selendang dari kain songket Jambi" },
+            { id: 22, name: "Sarung Songket", description: "Sarung dari kain songket untuk pria" },
+            { id: 23, name: "Kain Tenun Jambi", description: "Kain tenun tradisional dengan teknik khusus" },
+            { id: 24, name: "Kain Tapis Jambi", description: "Kain tapis dengan motif geometris khas" },
+            { id: 25, name: "Keris Jambi", description: "Keris tradisional dengan hulu dan warangka khas" },
+            { id: 26, name: "Pending (Sabuk)", description: "Sabuk tradisional dengan hiasan logam" },
+            { id: 27, name: "Tengkuluk", description: "Penutup kepala wanita dengan hiasan emas" },
+            { id: 28, name: "Mahkota Pengantin", description: "Mahkota pengantin dengan hiasan emas dan permata" },
+            { id: 29, name: "Kalung Tradisional", description: "Kalung dengan desain tradisional Jambi" },
+            { id: 30, name: "Gelang Tangan", description: "Gelang tangan dengan motif khas" },
+            { id: 31, name: "Anting-anting Tradisional", description: "Anting-anting dengan desain tradisional" },
+            { id: 32, name: "Cincin Tradisional", description: "Cincin dengan batu permata khas Jambi" },
+            { id: 33, name: "Broş Tradisional", description: "Broş untuk menghias baju adat" },
+            { id: 34, name: "Ikat Pinggang Kulit", description: "Ikat pinggang dari kulit dengan hiasan logam" },
+            { id: 35, name: "Tas Tradisional", description: "Tas tangan dengan motif tradisional Jambi" },
+            { id: 36, name: "Sepatu Tradisional", description: "Sepatu dengan desain tradisional Jambi" },
+            { id: 37, name: "Payung Adat", description: "Payung dengan motif dan warna khas Jambi" },
+            { id: 38, name: "Sampur (Selendang)", description: "Sampur untuk menari atau acara adat" },
+            { id: 39, name: "Kain Pelangi", description: "Kain dengan gradien warna seperti pelangi" },
+            { id: 40, name: "Pakaian Penari", description: "Pakaian khusus untuk penari tradisional Jambi" }
+        ];
+
+        // Data galeri dengan kategori baru
+        const galleryItems = [
+            {
+                id: 1,
+                name: "Baju Kurung Tanggung Emas",
+                category: "pakaian-adat",
+                description: "Baju kurung tradisional Jambi dengan sulaman benang emas yang indah dan motif songket khas. Cocok untuk acara formal dan pernikahan.",
+                price: "Rp 1.850.000",
+                image: "https://images.unsplash.com/photo-1591035897819-f4bdf739f446?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 2,
+                name: "Teluk Belanga Premium",
+                category: "pakaian-adat",
+                description: "Pakaian adat pria Jambi dengan kain songket premium dan detail sulaman halus. Dilengkapi dengan kopiah dan keris tradisional.",
+                price: "Rp 2.800.000",
+                image: "https://images.unsplash.com/photo-1592500103258-95a1d7b6f6f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 3,
+                name: "Jas Tutup Tradisional",
+                category: "jas",
+                description: "Jas tutup dengan motif khas Jambi dan bahan premium. Cocok untuk acara resmi dan kenegaraan.",
+                price: "Rp 3.200.000",
+                image: "https://images.unsplash.com/photo-1593702275682-4e4d6b66c4e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 4,
+                name: "Jas Pernikahan Mewah",
+                category: "jas",
+                description: "Jas khusus pernikahan dengan detail sulaman emas dan bahan sutra premium. Untuk pengantin pria yang elegan.",
+                price: "Rp 4.500.000",
+                image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 5,
+                name: "Keris Jambi Tradisional",
+                category: "aksesoris",
+                description: "Keris tradisional Jambi dengan hulu kayu berukir dan warangka yang dihiasi logam mulia. Simbol kehormatan.",
+                price: "Rp 1.500.000",
+                image: "https://images.unsplash.com/photo-1582552938357-32b906df40cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 6,
+                name: "Setelan Pengantin Lengkap",
+                category: "pernikahan",
+                description: "Setelan lengkap pengantin adat Jambi dengan aksesoris mahkota, kalung, gelang, dan kain songket terbaik.",
+                price: "Rp 8.500.000",
+                image: "https://images.unsplash.com/photo-1617113930546-9d2f9c6f6c0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 7,
+                name: "Baju Kurung Anak Perempuan",
+                category: "anak",
+                description: "Baju kurung mini untuk anak perempuan dengan motif songket khas Jambi. Tersedia dalam berbagai ukuran dan warna.",
+                price: "Rp 850.000",
+                image: "https://images.unsplash.com/photo-1586022046831-4b3764ecc4c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 8,
+                name: "Selendang Songket Premium",
+                category: "aksesoris",
+                description: "Selendang songket khas Jambi dengan motif tradisional dan warna cerah. Cocok untuk melengkapi busana adat wanita.",
+                price: "Rp 750.000",
+                image: "https://images.unsplash.com/photo-1520004434532-666916ab9822?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 9,
+                name: "Baju Kurung Modern",
+                category: "pakaian-adat",
+                description: "Baju kurung dengan sentuhan modern namun tetap mempertahankan unsur tradisional Jambi. Cocok untuk acara semi-formal.",
+                price: "Rp 1.200.000",
+                image: "https://images.unsplash.com/photo-1591123120675-6d4b8e5b3c9f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 10,
+                name: "Jas Acara Resmi",
+                category: "jas",
+                description: "Jas untuk acara resmi dengan desain elegan dan bahan berkualitas tinggi. Dilengkapi dengan aksesoris tradisional.",
+                price: "Rp 2.900.000",
+                image: "https://images.unsplash.com/photo-1578632749014-ca77efd052eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 11,
+                name: "Setelan Pakaian Anak Laki-laki",
+                category: "anak",
+                description: "Setelan lengkap untuk anak laki-laki dengan desain tradisional Jambi. Dilengkapi dengan peci kecil.",
+                price: "Rp 950.000",
+                image: "https://images.unsplash.com/photo-1523380744952-b7e00e6e2ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 12,
+                name: "Mahkota Pengantin Emas",
+                category: "aksesoris",
+                description: "Mahkota pengantin dengan hiasan emas dan permata asli. Dibuat dengan teknik tradisional oleh pengrajin ahli.",
+                price: "Rp 3.500.000",
+                image: "https://images.unsplash.com/photo-1598550476439-6847785ecca3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            }
+        ];
+
+        // Render jenis adat
+        function renderJenisAdat() {
+            const jenisAdatContainer = document.getElementById('jenisAdatContainer');
+            jenisAdatContainer.innerHTML = '';
+
+            jenisAdat.forEach(item => {
+                const jenisAdatItem = document.createElement('div');
+                jenisAdatItem.className = 'jenis-adat-item';
+                jenisAdatItem.innerHTML = `
+                    <h4>${item.name}</h4>
+                    <p>${item.description}</p>
+                `;
+
+                jenisAdatContainer.appendChild(jenisAdatItem);
+            });
+        }
+
+        // Render galeri
+        function renderGallery(items = galleryItems) {
+            const galleryContainer = document.getElementById('galleryContainer');
+            galleryContainer.innerHTML = '';
+
+            items.forEach(item => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item floating';
+                galleryItem.dataset.category = item.category;
+                galleryItem.innerHTML = `
+                    <span class="gallery-category">${item.category.toUpperCase().replace('-', ' ')}</span>
+                    <img class="gallery-img" src="${item.image}" alt="${item.name}" loading="lazy">
+                    <div class="gallery-info">
+                        <h3 class="gallery-title">${item.name}</h3>
+                        <p class="gallery-desc">${item.description}</p>
+                        <div class="gallery-price">${item.price}</div>
+                    </div>
+                `;
+
+                galleryContainer.appendChild(galleryItem);
+            });
+        }
+
+        // Filter galeri
+        function filterGallery(category) {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => {
+                if (btn.dataset.filter === category) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            const filteredItems = category === 'all'
+                ? galleryItems
+                : galleryItems.filter(item => item.category === category);
+
+            renderGallery(filteredItems);
+        }
+
+        // Setup Jenis Adat Modal
+        const jenisAdatModal = document.getElementById('jenisAdatModal');
+        const heroJenisAdat = document.getElementById('heroJenisAdat');
+        const closeJenisAdatModal = document.getElementById('closeJenisAdatModal');
+
+        // Open Jenis Adat Modal
+        function openJenisAdatModal() {
+            jenisAdatModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Jenis Adat Modal
+        function closeJenisAdatModalFunc() {
+            jenisAdatModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event Listeners
+        heroJenisAdat?.addEventListener('click', openJenisAdatModal);
+        closeJenisAdatModal?.addEventListener('click', closeJenisAdatModalFunc);
+
+        // Close modal when clicking outside
+        jenisAdatModal?.addEventListener('click', (e) => {
+            if (e.target === jenisAdatModal) {
+                closeJenisAdatModalFunc();
+            }
+        });
+
+        // Setup filter buttons untuk galeri
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const filter = this.dataset.filter;
+                filterGallery(filter);
+            });
+        });
+
+        // Setup filter from URL parameter
+        function getCategoryFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('category') || 'all';
+        }
+
+        // Initialize navbar scripts after loading
+        function initNavbarScripts() {
+            // Setup navbar jenis adat button
+            const navbarJenisAdat = document.getElementById('navbarJenisAdat');
+            navbarJenisAdat?.addEventListener('click', openJenisAdatModal);
+        }
+
+        // Initialize footer scripts after loading
+        function initFooterScripts() {
+            // Setup footer links
+            const footerJenisAdat = document.getElementById('footerJenisAdat');
+            const footerWhatsapp = document.getElementById('footerWhatsapp');
+
+            footerJenisAdat?.addEventListener('click', (e) => {
+                e.preventDefault();
+                openJenisAdatModal();
+            });
+        }
+
+        // Update active nav link
+        function updateActiveNavLink() {
+            setTimeout(() => {
+                const navLinks = document.querySelectorAll('.navbar-menu li a');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === 'gallery.html') {
+                        link.classList.add('active');
+                    }
+                });
+            }, 100);
+        }
+
+        // Inisialisasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function () {
+            renderJenisAdat();
+            renderGallery();
+
+            // Filter berdasarkan URL parameter
+            const category = getCategoryFromURL();
+            if (category !== 'all') {
+                filterGallery(category);
+            }
+
+            // Animasi untuk elemen yang masuk saat scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Terapkan animasi pada elemen
+            document.querySelectorAll('.gallery-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+
+</html>

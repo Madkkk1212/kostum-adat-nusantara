@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Pakaian Adat Jambi - Custom Adat Jambi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B0000;
+            --secondary: #D4AF37;
+            --accent: #FFD700;
+            --light: #FFF8F0;
+            --dark: #2C1810;
+            --text: #333333;
+            --shadow: rgba(139, 0, 0, 0.15);
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient: linear-gradient(135deg, #8B0000 0%, #B22222 50%, #8B0000 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero About */
+        .about-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 150px 20px 80px;
+            background: linear-gradient(rgba(44, 24, 16, 0.9), rgba(139, 0, 0, 0.85)),
+                url('https://images.unsplash.com/photo-1520004434532-666916ab9822?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+
+        .about-hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .about-hero h1 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .about-hero p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* About Content Layout */
+        .about-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 50px;
+            padding: 80px 0;
+        }
+
+        /* Sidebar */
+        .about-sidebar {
+            position: sticky;
+            top: 150px;
+            height: fit-content;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .sidebar-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--primary);
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: var(--text);
+            border-radius: 10px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .sidebar-menu li a:hover,
+        .sidebar-menu li a.active {
+            background: var(--gradient);
+            color: white;
+            transform: translateX(10px);
+        }
+
+        .sidebar-menu li a i {
+            font-size: 1.2rem;
+            width: 25px;
+            text-align: center;
+        }
+
+        /* Content Area */
+        .about-content {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .content-section {
+            margin-bottom: 60px;
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .content-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: var(--primary);
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .clothing-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+            margin-top: 30px;
+        }
+
+        .clothing-images {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .clothing-images img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .clothing-images img:hover {
+            transform: scale(1.02);
+        }
+
+        .clothing-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .clothing-info p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .clothing-features {
+            list-style: none;
+            margin-top: 25px;
+        }
+
+        .clothing-features li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .clothing-features li i {
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 1000px;
+            }
+
+            .about-container {
+                grid-template-columns: 250px 1fr;
+                gap: 40px;
+            }
+
+            .about-hero h1 {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                max-width: 750px;
+            }
+
+            .about-hero h1 {
+                font-size: 3rem;
+            }
+
+            .about-hero p {
+                font-size: 1.3rem;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .about-sidebar {
+                position: relative;
+                top: 0;
+            }
+
+            .clothing-detail {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 30px;
+            }
+
+            .about-hero {
+                padding: 130px 30px 60px;
+            }
+
+            .about-hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .about-hero p {
+                font-size: 1.2rem;
+            }
+
+            .about-content {
+                padding: 30px;
+            }
+
+            .content-section h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 25px;
+            }
+
+            .about-hero {
+                padding: 120px 25px 50px;
+            }
+
+            .about-hero h1 {
+                font-size: 2.4rem;
+            }
+
+            .about-hero p {
+                font-size: 1.1rem;
+            }
+
+            .about-sidebar {
+                padding: 20px;
+            }
+
+            .sidebar-title {
+                font-size: 1.6rem;
+            }
+
+            .sidebar-menu li a {
+                padding: 12px 15px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Include Navbar -->
+    <div id="navbar-container"></div>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <div class="about-hero-content">
+                <h1>Mengenal Pakaian Adat Jambi</h1>
+                <p>Menelusuri sejarah, makna filosofis, dan keindahan pakaian tradisional Jambi yang kaya akan nilai
+                    budaya</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <div class="container">
+        <div class="about-container">
+            <!-- Sidebar Menu -->
+            <aside class="about-sidebar">
+                <h3 class="sidebar-title">Jenis Pakaian Adat</h3>
+                <ul class="sidebar-menu">
+                    <li><a href="#kurung" class="active" data-section="kurung"><i class="fas fa-female"></i> Baju Kurung
+                            Tanggung</a></li>
+                    <li><a href="#teluk" data-section="teluk"><i class="fas fa-male"></i> Teluk Belanga</a></li>
+                    <li><a href="#pengantin" data-section="pengantin"><i class="fas fa-heart"></i> Pakaian Pengantin</a>
+                    </li>
+                    <li><a href="#harian" data-section="harian"><i class="fas fa-tshirt"></i> Pakaian Harian</a></li>
+                    <li><a href="#anak" data-section="anak"><i class="fas fa-child"></i> Pakaian Anak</a></li>
+                    <li><a href="#aksesoris" data-section="aksesoris"><i class="fas fa-gem"></i> Aksesoris
+                            Tradisional</a></li>
+                </ul>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="about-content">
+                <!-- Baju Kurung Tanggung Section -->
+                <section id="kurung" class="content-section active">
+                    <h2>Baju Kurung Tanggung</h2>
+                    <p>Baju Kurung Tanggung adalah pakaian adat utama wanita Jambi yang memiliki bentuk kurung longgar
+                        dengan panjang hingga lutut. Pakaian ini biasanya dilengkapi dengan sulaman benang emas yang
+                        rumit dan motif khas Jambi.</p>
+
+                    <div class="clothing-detail">
+                        <div class="clothing-images">
+                            <img src="https://images.unsplash.com/photo-1591035897819-f4bdf739f446?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Baju Kurung Tanggung">
+                            <img src="https://images.unsplash.com/photo-1591123120675-6d4b8e5b3c9f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Detail Baju Kurung">
+                        </div>
+
+                        <div class="clothing-info">
+                            <h3>Karakteristik & Makna</h3>
+                            <p>Baju Kurung Tanggung menggambarkan kesopanan dan keanggunan wanita Jambi. Warna-warna
+                                cerah yang digunakan melambangkan keceriaan dan semangat hidup masyarakat Jambi.</p>
+                            <p>Motif yang digunakan biasanya terinspirasi dari alam sekitar seperti bunga, daun, dan
+                                hewan khas Jambi. Setiap motif memiliki makna filosofis tersendiri yang berkaitan dengan
+                                kehidupan dan nilai-nilai budaya.</p>
+
+                            <ul class="clothing-features">
+                                <li><i class="fas fa-check-circle"></i> Panjang hingga lutut atau sedikit di bawah lutut
+                                </li>
+                                <li><i class="fas fa-check-circle"></i> Dilengkapi dengan songket dan tengkuluk (penutup
+                                    kepala)</li>
+                                <li><i class="fas fa-check-circle"></i> Warna dominan merah, emas, hitam, dan putih</li>
+                                <li><i class="fas fa-check-circle"></i> Sulaman benang emas dengan motif tradisional
+                                </li>
+                                <li><i class="fas fa-check-circle"></i> Cocok untuk acara formal, pernikahan, dan
+                                    upacara adat</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Teluk Belanga Section -->
+                <section id="teluk" class="content-section">
+                    <h2>Teluk Belanga</h2>
+                    <p>Teluk Belanga adalah pakaian adat pria Jambi berupa kemeja panjang dengan celana panjang dan kain
+                        songket sebagai pelengkap. Pakaian ini mencerminkan kejantanan dan kewibawaan pria Jambi.</p>
+
+                    <div class="clothing-detail">
+                        <div class="clothing-images">
+                            <img src="https://images.unsplash.com/photo-1592500103258-95a1d7b6f6f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Teluk Belanga">
+                            <img src="https://images.unsplash.com/photo-1593702275682-4e4d6b66c4e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Detail Teluk Belanga">
+                        </div>
+
+                        <div class="clothing-info">
+                            <h3>Karakteristik & Makna</h3>
+                            <p>Teluk Belanga menggambarkan ketegasan dan kewibawaan pria Jambi. Pakaian ini biasanya
+                                dilengkapi dengan kopiah dan keris sebagai simbol kehormatan dan keberanian.</p>
+                            <p>Kain songket yang digunakan memiliki motif khusus yang berbeda-beda sesuai dengan status
+                                sosial pemakainya. Warna gelap seperti hitam dan merah maroon melambangkan kekuatan dan
+                                kematangan.</p>
+
+                            <ul class="clothing-features">
+                                <li><i class="fas fa-check-circle"></i> Kemeja panjang dengan kerah tertutup</li>
+                                <li><i class="fas fa-check-circle"></i> Dilengkapi dengan kopiah dan keris tradisional
+                                </li>
+                                <li><i class="fas fa-check-circle"></i> Kain songket khas Jambi sebagai pelengkap</li>
+                                <li><i class="fas fa-check-circle"></i> Warna dominan hitam, merah maroon, dan emas</li>
+                                <li><i class="fas fa-check-circle"></i> Cocok untuk acara resmi dan upacara adat</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pakaian Pengantin Section -->
+                <section id="pengantin" class="content-section">
+                    <h2>Pakaian Pengantin Jambi</h2>
+                    <p>Pakaian pengantin adat Jambi adalah setelan lengkap dengan aksesoris mahkota, kalung, gelang, dan
+                        kain songket terbaik. Setiap elemen memiliki makna khusus dalam pernikahan adat Jambi.</p>
+
+                    <div class="clothing-detail">
+                        <div class="clothing-images">
+                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Pakaian Pengantin">
+                            <img src="https://images.unsplash.com/photo-1617113930546-9d2f9c6f6c0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Detail Pengantin">
+                        </div>
+
+                        <div class="clothing-info">
+                            <h3>Karakteristik & Makna</h3>
+                            <p>Pakaian pengantin Jambi adalah perpaduan sempurna antara keindahan dan makna filosofis.
+                                Mahkota pengantin yang bertingkat melambangkan tangga kehidupan yang akan dilalui
+                                bersama.</p>
+                            <p>Aksesoris emas dan perak yang dikenakan melambangkan kemakmuran dan harapan untuk
+                                kehidupan yang sejahtera. Songket khusus pernikahan memiliki motif yang berbeda dengan
+                                songket biasa.</p>
+
+                            <ul class="clothing-features">
+                                <li><i class="fas fa-check-circle"></i> Mahkota pengantin bertingkat (siger)</li>
+                                <li><i class="fas fa-check-circle"></i> Aksesoris emas lengkap (kalung, gelang, anting)
+                                </li>
+                                <li><i class="fas fa-check-circle"></i> Songket motif khusus pernikahan</li>
+                                <li><i class="fas fa-check-circle"></i> Warna dominan merah, emas, dan putih</li>
+                                <li><i class="fas fa-check-circle"></i> Dilengkapi dengan selendang songket</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pakaian Harian Section -->
+                <section id="harian" class="content-section">
+                    <h2>Pakaian Harian</h2>
+                    <p>Pakaian harian masyarakat Jambi lebih sederhana namun tetap mempertahankan ciri khas tradisional.
+                        Pakaian ini dirancang untuk kenyamanan sehari-hari dengan sentuhan budaya Jambi.</p>
+
+                    <div class="clothing-detail">
+                        <div class="clothing-images">
+                            <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Pakaian Harian">
+                            <img src="https://images.unsplash.com/photo-1520004434532-666916ab9822?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Pakaian Sehari-hari">
+                        </div>
+
+                        <div class="clothing-info">
+                            <h3>Karakteristik & Makna</h3>
+                            <p>Pakaian harian mencerminkan keseharian masyarakat Jambi yang sederhana namun tetap
+                                menjaga nilai-nilai budaya. Bahan yang digunakan lebih ringan dan nyaman untuk aktivitas
+                                sehari-hari.</p>
+                            <p>Meski sederhana, pakaian harian tetap memiliki motif dan warna khas Jambi. Pakaian ini
+                                menunjukkan bahwa budaya Jambi dapat diintegrasikan dalam kehidupan modern.</p>
+
+                            <ul class="clothing-features">
+                                <li><i class="fas fa-check-circle"></i> Bahan katun atau sutra ringan</li>
+                                <li><i class="fas fa-check-circle"></i> Desain sederhana namun elegan</li>
+                                <li><i class="fas fa-check-circle"></i> Motif dan warna khas Jambi</li>
+                                <li><i class="fas fa-check-circle"></i> Nyaman untuk aktivitas sehari-hari</li>
+                                <li><i class="fas fa-check-circle"></i> Cocok untuk berbagai usia</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pakaian Anak Section -->
+                <section id="anak" class="content-section">
+                    <h2>Pakaian Anak</h2>
+                    <p>Pakaian adat untuk anak-anak Jambi dirancang khusus dengan ukuran yang sesuai dan motif yang
+                        lebih ceria. Pakaian ini memperkenalkan budaya Jambi sejak dini kepada generasi muda.</p>
+
+                    <div class="clothing-detail">
+                        <div class="clothing-images">
+                            <img src="https://images.unsplash.com/photo-1586022046831-4b3764ecc4c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Pakaian Anak">
+                            <img src="https://images.unsplash.com/photo-1578632749014-ca77efd052eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Pakaian Anak Laki-laki">
+                        </div>
+
+                        <div class="clothing-info">
+                            <h3>Karakteristik & Makna</h3>
+                            <p>Pakaian anak-anak Jambi dirancang untuk memperkenalkan nilai-nilai budaya sejak dini.
+                                Motif yang digunakan lebih sederhana namun tetap mempertahankan ciri khas Jambi.</p>
+                            <p>Warna-warna cerah digunakan untuk mencerminkan keceriaan masa kanak-kanak. Pakaian ini
+                                biasanya dikenakan pada acara-acara khusus seperti perayaan adat atau hari besar.</p>
+
+                            <ul class="clothing-features">
+                                <li><i class="fas fa-check-circle"></i> Ukuran khusus untuk anak-anak</li>
+                                <li><i class="fas fa-check-circle"></i> Warna-warna cerah dan ceria</li>
+                                <li><i class="fas fa-check-circle"></i> Motif sederhana namun bermakna</li>
+                                <li><i class="fas fa-check-circle"></i> Bahan nyaman untuk kulit anak</li>
+                                <li><i class="fas fa-check-circle"></i> Dilengkapi dengan aksesoris mini</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Aksesoris Tradisional Section -->
+                <section id="aksesoris" class="content-section">
+                    <h2>Aksesoris Tradisional</h2>
+                    <p>Aksesoris tradisional Jambi melengkapi keindahan pakaian adat. Setiap aksesoris memiliki fungsi
+                        dan makna tersendiri dalam budaya Jambi.</p>
+
+                    <div class="clothing-detail">
+                        <div class="clothing-images">
+                            <img src="https://images.unsplash.com/photo-1582552938357-32b906df40cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Aksesoris Tradisional">
+                            <img src="https://images.unsplash.com/photo-1598550476439-6847785ecca3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Keris dan Aksesoris">
+                        </div>
+
+                        <div class="clothing-info">
+                            <h3>Jenis & Makna Aksesoris</h3>
+                            <p>Aksesoris tradisional Jambi tidak hanya berfungsi sebagai penghias, tetapi juga memiliki
+                                makna simbolis yang dalam. Setiap aksesoris mencerminkan status, usia, dan peran
+                                pemakainya dalam masyarakat.</p>
+                            <p>Keris misalnya, bukan hanya senjata tetapi juga simbol kehormatan dan keberanian.
+                                Sedangkan perhiasan emas melambangkan kemakmuran dan status sosial.</p>
+
+                            <ul class="clothing-features">
+                                <li><i class="fas fa-check-circle"></i> Keris dengan sarung kayu berukir</li>
+                                <li><i class="fas fa-check-circle"></i> Perhiasan emas (kalung, gelang, cincin)</li>
+                                <li><i class="fas fa-check-circle"></i> Selendang songket berbagai motif</li>
+                                <li><i class="fas fa-check-circle"></i> Tengkuluk (penutup kepala wanita)</li>
+                                <li><i class="fas fa-check-circle"></i> Kopiah dan ikat pinggang tradisional</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Include Footer -->
+    <div id="footer-container"></div>
+
+    <script>
+        // Load navbar and footer
+        document.addEventListener('DOMContentLoaded', function () {
+            // Load navbar
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                    // Reinitialize navbar scripts
+                    initNavbarScripts();
+                    // Update active link
+                    updateActiveNavLink();
+                })
+                .catch(error => {
+                    console.error('Error loading navbar:', error);
+                    document.getElementById('navbar-container').innerHTML = '<p>Error loading navigation</p>';
+                });
+
+            // Load footer
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-container').innerHTML = data;
+                    // Reinitialize footer scripts
+                    initFooterScripts();
+                })
+                .catch(error => {
+                    console.error('Error loading footer:', error);
+                    document.getElementById('footer-container').innerHTML = '<p>Error loading footer</p>';
+                });
+
+            // Setup sidebar navigation
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+            const contentSections = document.querySelectorAll('.content-section');
+            const footerLinks = document.querySelectorAll('.footer-links .sidebar-link');
+
+            // Function to show section
+            function showSection(sectionId) {
+                // Hide all sections
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                // Show selected section
+                const targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+
+                // Update active link in sidebar
+                sidebarLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-section') === sectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // Add click event to sidebar links
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const sectionId = this.getAttribute('data-section');
+                    showSection(sectionId);
+                });
+            });
+
+            // Setup page functionality
+            setupPageFunctionality();
+        });
+
+        // Setup page functionality
+        function setupPageFunctionality() {
+            // Setup sidebar navigation
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            // Function to show section
+            function showSection(sectionId) {
+                // Hide all sections
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                // Show selected section
+                const targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+
+                // Update active link in sidebar
+                sidebarLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-section') === sectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // Add click event to sidebar links
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const sectionId = this.getAttribute('data-section');
+                    showSection(sectionId);
+                });
+            });
+
+            // Animation on scroll for images
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Apply animation to images
+            document.querySelectorAll('.clothing-images img').forEach(img => {
+                img.style.opacity = '0';
+                img.style.transform = 'translateY(30px)';
+                img.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(img);
+            });
+        }
+
+        // Initialize navbar scripts after loading
+        function initNavbarScripts() {
+            // Setup mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+
+            if (mobileMenuBtn && navMenu) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    navMenu.classList.toggle('active');
+                    this.classList.toggle('active');
+                    this.innerHTML = navMenu.classList.contains('active')
+                        ? '<i class="fas fa-times"></i>'
+                        : '<i class="fas fa-bars"></i>';
+                });
+
+                // Close mobile menu when clicking on a link
+                document.querySelectorAll('#navMenu a').forEach(link => {
+                    link.addEventListener('click', function () {
+                        navMenu.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        mobileMenuBtn.classList.remove('active');
+                    });
+                });
+            }
+
+            // Setup header scroll effect
+            const header = document.getElementById('header');
+            if (header) {
+                window.addEventListener('scroll', function () {
+                    if (window.scrollY > 100) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                });
+            }
+        }
+
+        // Initialize footer scripts after loading
+        function initFooterScripts() {
+            // Setup footer links to work with sidebar
+            const footerLinks = document.querySelectorAll('.footer-links .sidebar-link');
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            if (footerLinks.length > 0) {
+                footerLinks.forEach(link => {
+                    link.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const sectionId = this.getAttribute('href').substring(1);
+
+                        // Show the section
+                        contentSections.forEach(section => {
+                            section.classList.remove('active');
+                        });
+
+                        const targetSection = document.getElementById(sectionId);
+                        if (targetSection) {
+                            targetSection.classList.add('active');
+                        }
+
+                        // Update active link in sidebar
+                        sidebarLinks.forEach(sidebarLink => {
+                            sidebarLink.classList.remove('active');
+                            if (sidebarLink.getAttribute('data-section') === sectionId) {
+                                sidebarLink.classList.add('active');
+                            }
+                        });
+
+                        // Scroll to top of content
+                        document.querySelector('.about-content').scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+            }
+        }
+
+        // Update active nav link
+        function updateActiveNavLink() {
+            setTimeout(() => {
+                const navLinks = document.querySelectorAll('.navbar-menu li a');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === 'about.html') {
+                        link.classList.add('active');
+                    }
+                });
+            }, 100);
+        }
+    </script>
+</body>
+
+</html>

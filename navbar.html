@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B0000;
+            --secondary: #D4AF37;
+            --accent: #FFD700;
+            --light: #FFF8F0;
+            --dark: #2C1810;
+            --shadow: rgba(139, 0, 0, 0.15);
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient: linear-gradient(135deg, #8B0000 0%, #B22222 50%, #8B0000 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            padding-top: 100px;
+            /* Memberi ruang untuk navbar fixed */
+            min-height: 200vh;
+            /* Untuk testing scroll */
+        }
+
+        /* Navbar Styles */
+        .main-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 248, 240, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            transform: translateY(0);
+        }
+
+        .main-navbar.hidden {
+            transform: translateY(-100%);
+        }
+
+        .main-navbar.scrolled {
+            background: rgba(255, 248, 240, 0.98);
+            box-shadow: 0 10px 40px rgba(139, 0, 0, 0.15);
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .main-navbar.scrolled .navbar-container {
+            padding: 10px 20px;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            min-width: 0;
+        }
+
+        .navbar-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-right: 12px;
+            transition: var(--transition);
+        }
+
+        .main-navbar.scrolled .logo-icon img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+            position: relative;
+        }
+
+        .logo-text span::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        /* Navigation */
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .navbar-menu li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            padding: 8px 0;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .navbar-menu li a i {
+            font-size: 1rem;
+            transition: var(--transition);
+            min-width: 16px;
+        }
+
+        .navbar-menu li a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        .navbar-menu li a:hover {
+            color: var(--primary);
+        }
+
+        .navbar-menu li a:hover::before,
+        .navbar-menu li a.active::before {
+            width: 100%;
+        }
+
+        .navbar-menu li a:hover i {
+            transform: translateY(-3px);
+        }
+
+        /* Jenis Adat Button */
+        .jenis-adat-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 20px rgba(139, 0, 0, 0.3);
+            white-space: nowrap;
+        }
+
+        .jenis-adat-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4);
+            background: linear-gradient(135deg, #B22222 0%, #8B0000 100%);
+        }
+
+        /* Mobile Menu Button - FIXED */
+        .mobile-menu-btn {
+            display: none;
+            width: 44px;
+            height: 44px;
+            background: var(--gradient);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px var(--shadow);
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            transform: rotate(180deg);
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1200px) {
+            .navbar-menu {
+                gap: 25px;
+            }
+
+            .navbar-menu li a {
+                font-size: 0.95rem;
+            }
+
+            .jenis-adat-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .navbar-menu {
+                gap: 20px;
+            }
+
+            .logo-text {
+                font-size: 1.6rem;
+            }
+
+            .logo-icon img {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .navbar-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 100px 30px 40px;
+                gap: 20px;
+                transition: var(--transition);
+                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+                overflow-y: auto;
+            }
+
+            .navbar-menu.active {
+                right: 0;
+            }
+
+            .navbar-menu li {
+                width: 100%;
+            }
+
+            .navbar-menu li a {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+                border-radius: 10px;
+                width: 100%;
+            }
+
+            .navbar-menu li a:hover {
+                background: rgba(139, 0, 0, 0.05);
+            }
+
+            .navbar-menu li a i {
+                width: 24px;
+                text-align: center;
+            }
+
+            .mobile-menu-btn {
+                display: flex !important;
+            }
+
+            .jenis-adat-btn {
+                display: none;
+            }
+
+            .mobile-overlay {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-container {
+                padding: 12px 15px;
+            }
+
+            .main-navbar.scrolled .navbar-container {
+                padding: 8px 15px;
+            }
+
+            .logo-text {
+                font-size: 1.4rem;
+            }
+
+            .logo-icon img {
+                width: 45px;
+                height: 45px;
+                margin-right: 8px;
+            }
+
+            .main-navbar.scrolled .logo-icon img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .navbar-menu {
+                width: 280px;
+                padding: 90px 25px 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .logo-icon img {
+                width: 40px;
+                height: 40px;
+                margin-right: 6px;
+            }
+
+            .mobile-menu-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .navbar-menu {
+                width: 250px;
+                padding: 85px 20px 30px;
+            }
+
+            .navbar-menu li a {
+                font-size: 1rem;
+                padding: 12px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1rem;
+            }
+
+            .logo-icon img {
+                width: 35px;
+                height: 35px;
+            }
+
+            .navbar-logo {
+                flex-grow: 1;
+            }
+
+            .navbar-container {
+                padding: 10px 12px;
+            }
+
+            .navbar-menu {
+                width: 100%;
+                border-radius: 0;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .logo-text {
+                font-size: 0.9rem;
+            }
+
+            .logo-icon img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        /* Content untuk testing */
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .content h1 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .content p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        /* Tablet landscape optimization */
+        @media (min-width: 768px) and (max-width: 992px) and (orientation: landscape) {
+            .navbar-menu {
+                width: 250px;
+                padding: 80px 25px 30px;
+            }
+
+            .navbar-menu li a {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- Navbar -->
+    <nav class="main-navbar" id="mainNavbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <div class="logo-icon">
+                    <img src="image/logo.png" alt="Logo Custom Adat Jambi">
+                </div>
+                <div class="logo-text">Custom <span>Adat Jambi</span></div>
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Beranda</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> Tentang Baju</a></li>
+                <li><a href="gallery.html"><i class="fas fa-images"></i> Galeri</a></li>
+                <li><a href="index.html#maps"><i class="fas fa-map-marked-alt"></i> Lokasi</a></li>
+                <li><a href="index.html#contact"><i class="fas fa-phone-alt"></i> Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Content untuk testing -->
+    <div class="content">
+        <h1>Custom Adat Jambi</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+            laborum.</p>
+        <p>Scroll ke bawah untuk melihat efek navbar dan coba hamburger menu di ukuran mobile.</p>
+        <div style="height: 1000px;"></div>
+        <p>Scroll lebih lanjut...</p>
+    </div>
+
+    <script>
+        // DOM Elements
+        const navbar = document.getElementById('mainNavbar');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navbarMenu = document.getElementById('navbarMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const navLinks = document.querySelectorAll('.navbar-menu li a');
+
+        // Debug log untuk memastikan elemen ditemukan
+        console.log('Mobile button found:', !!mobileMenuBtn);
+        console.log('Navbar menu found:', !!navbarMenu);
+        console.log('Overlay found:', !!mobileOverlay);
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            console.log('Toggle mobile menu clicked');
+
+            navbarMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+
+            // Change icon
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navbarMenu.classList.contains('active')) {
+                icon.className = 'fas fa-times';
+                document.body.style.overflow = 'hidden';
+            } else {
+                icon.className = 'fas fa-bars';
+                document.body.style.overflow = '';
+            }
+
+            console.log('Menu active:', navbarMenu.classList.contains('active'));
+        }
+
+        // Close mobile menu
+        function closeMobileMenu() {
+            console.log('Closing mobile menu');
+
+            navbarMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            mobileMenuBtn.classList.remove('active');
+
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.className = 'fas fa-bars';
+            document.body.style.overflow = '';
+        }
+
+        // Event Listeners
+        mobileMenuBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            toggleMobileMenu();
+        });
+
+        mobileOverlay.addEventListener('click', function (e) {
+            e.stopPropagation();
+            closeMobileMenu();
+        });
+
+        // Close mobile menu when clicking on links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                if (window.innerWidth <= 992) {
+                    closeMobileMenu();
+                }
+            });
+        });
+
+        // Navbar hide on scroll
+        let lastScrollTop = 0;
+        const navbarHeight = navbar.offsetHeight;
+
+        function handleScroll() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Add scrolled class for styling
+            if (scrollTop > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Hide navbar on scroll down, show on scroll up
+            if (scrollTop > lastScrollTop && scrollTop > navbarHeight) {
+                // Scroll down - hide navbar
+                navbar.classList.add('hidden');
+            } else {
+                // Scroll up - show navbar
+                navbar.classList.remove('hidden');
+            }
+
+            lastScrollTop = scrollTop;
+        }
+
+        // Handle window resize
+        let resizeTimer;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                if (window.innerWidth > 992) {
+                    closeMobileMenu();
+                }
+            }, 250);
+        });
+
+        // Close menu when clicking outside on mobile
+        document.addEventListener('click', function (e) {
+            if (window.innerWidth <= 992 &&
+                navbarMenu.classList.contains('active') &&
+                !navbarMenu.contains(e.target) &&
+                !mobileMenuBtn.contains(e.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Initialize scroll event
+        window.addEventListener('scroll', handleScroll);
+
+        // Trigger initial scroll check
+        window.dispatchEvent(new Event('scroll'));
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && navbarMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Touch events for mobile swipe
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', function (e) {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        document.addEventListener('touchend', function (e) {
+            touchEndY = e.changedTouches[0].screenY;
+            handleTouchScroll();
+        });
+
+        function handleTouchScroll() {
+            if (touchEndY < touchStartY && window.pageYOffset > navbarHeight) {
+                // Swipe down - hide navbar
+                navbar.classList.add('hidden');
+            } else if (touchEndY > touchStartY) {
+                // Swipe up - show navbar
+                navbar.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>

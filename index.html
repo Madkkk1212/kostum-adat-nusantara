@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kostum Adat Nusantara - Pakaian Adat & Jas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B0000;
+            --secondary: #D4AF37;
+            --accent: #FFD700;
+            --light: #FFF8F0;
+            --dark: #2C1810;
+            --text: #333333;
+            --shadow: rgba(139, 0, 0, 0.15);
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient: linear-gradient(135deg, #8B0000 0%, #B22222 50%, #8B0000 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 80px 20px;
+            background: linear-gradient(rgba(44, 24, 16, 0.9), rgba(139, 0, 0, 0.85)),
+                url('https://images.unsplash.com/photo-1523380744952-b7e00e6e2ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            color: white;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 40px;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(139, 0, 0, 0.4);
+        }
+
+        .btn i {
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .btn:hover i {
+            transform: translateX(5px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        /* Maps Section */
+        .maps-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #f9f5f0 0%, #fff8f0 100%);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 3.5rem;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .section-title h2::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .maps-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .maps-info {
+            padding-right: 40px;
+        }
+
+        .maps-info h3 {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .maps-info p {
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+            color: var(--text);
+            opacity: 0.9;
+        }
+
+        .info-detail {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border-left: 5px solid var(--primary);
+        }
+
+        .info-detail:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.1);
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        #map {
+            height: 550px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 8px solid white;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Kontak Section */
+        .contact-section {
+            padding: 120px 0;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 400px;
+            height: 400px;
+            background: var(--gradient);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.1;
+            transform: translate(-200px, 200px);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .contact-info h3 {
+            font-size: 2.8rem;
+            margin-bottom: 40px;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f9f5f0;
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+
+        .contact-detail:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.1);
+        }
+
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+
+        /* WhatsApp Popup Trigger */
+        .whatsapp-trigger {
+            margin-top: 50px;
+        }
+
+        .whatsapp-trigger h4 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 35px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            border-radius: 15px;
+            transition: var(--transition);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.3);
+            cursor: pointer;
+            border: none;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(37, 211, 102, 0.4);
+            background: #1da851;
+        }
+
+        .whatsapp-btn i {
+            font-size: 1.8rem;
+        }
+
+        /* Popup Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .jenis-adat-modal {
+            background: white;
+            border-radius: 25px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            animation: modalSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .wa-modal {
+            background: white;
+            border-radius: 25px;
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            animation: modalSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-header {
+            background: var(--gradient);
+            padding: 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .modal-header h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        /* Jenis Adat Modal Content */
+        .jenis-adat-content {
+            padding: 40px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .jenis-adat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .jenis-adat-item {
+            background: #f9f5f0;
+            border-radius: 15px;
+            padding: 25px;
+            transition: var(--transition);
+            border-left: 5px solid var(--primary);
+            cursor: pointer;
+        }
+
+        .jenis-adat-item:hover {
+            transform: translateY(-5px);
+            background: var(--primary);
+            color: white;
+        }
+
+        .jenis-adat-item:hover h4,
+        .jenis-adat-item:hover p {
+            color: white;
+        }
+
+        .jenis-adat-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .jenis-adat-item p {
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        /* WhatsApp Modal Content */
+        .modal-content {
+            padding: 40px;
+        }
+
+        .modal-content p {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .wa-options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .wa-option {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: #f9f5f0;
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--text);
+            transition: var(--transition);
+            border-left: 5px solid #25D366;
+        }
+
+        .wa-option:hover {
+            transform: translateX(10px);
+            background: var(--primary);
+            color: white;
+        }
+
+        .wa-option:hover .wa-icon {
+            background: white;
+            color: #25D366;
+        }
+
+        .wa-option:hover .wa-detail h4,
+        .wa-option:hover .wa-detail p {
+            color: white;
+        }
+
+        .wa-icon {
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .wa-detail h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .wa-detail p {
+            font-size: 1rem;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 1000px;
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .section-title h2 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                max-width: 750px;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+            }
+
+            .maps-section,
+            .contact-section {
+                padding: 100px 0;
+            }
+
+            .section-title h2 {
+                font-size: 2.8rem;
+            }
+
+            .maps-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .maps-info {
+                padding-right: 0;
+            }
+
+            .jenis-adat-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 30px;
+            }
+
+            .hero {
+                padding: 100px 30px 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 350px;
+                text-align: center;
+                padding: 20px 30px;
+            }
+
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+
+            .maps-info h3,
+            .contact-info h3 {
+                font-size: 2.2rem;
+            }
+
+            #map {
+                height: 450px;
+            }
+
+            .jenis-adat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 25px;
+            }
+
+            .hero {
+                padding: 90px 25px 50px;
+            }
+
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+
+            .info-detail,
+            .contact-detail {
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .contact-icon,
+            .info-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 1.3rem;
+            }
+
+            .wa-option {
+                padding: 18px;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
+
+            .jenis-adat-content {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Include Navbar -->
+    <div id="navbar-container"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Kostum Adat Nusantara</h1>
+                <p>Melestarikan warisan budaya Jambi melalui pakaian adat tradisional yang elegan dan autentik. Temukan
+                    koleksi terbaik baju adat Jambi dengan kualitas terbaik dan harga terjangkau.</p>
+                <div class="hero-btns">
+                    <a href="about.html" class="btn btn-outline">
+                        <i class="fa-solid fa-shirt"></i> Tentang Baju
+                    </a>
+                    <a href="gallery.html" class="btn btn-outline">
+                        <i class="fas fa-shopping-bag"></i> Lihat Galeri
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Maps Section -->
+    <section class="maps-section" id="maps">
+        <div class="container">
+            <div class="section-title">
+                <h2>Lokasi Workshop</h2>
+                <p>Kunjungi workshop kami untuk melihat langsung proses pembuatan pakaian adat Jambi yang autentik.</p>
+            </div>
+
+            <div class="maps-container">
+                <div class="maps-info">
+                    <h3>Temukan Pengrajin Terbaik di Jambi</h3>
+                    <p>Kami berada di lokasi strategis di jantung kota Jambi, dengan akses mudah dan fasilitas lengkap
+                        untuk kenyamanan Anda.</p>
+
+                    <div class="info-detail">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Alamat Lengkap</h4>
+                            <p>Jl. Kapten Pattimura No. 45, Kota Jambi, Provinsi Jambi, Indonesia 36121</p>
+                        </div>
+                    </div>
+
+                    <div class="info-detail">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Jam Operasional</h4>
+                            <p>Senin - Jumat: 08.00 - 17.00 WIB</p>
+                            <p>Sabtu: 08.00 - 14.00 WIB</p>
+                            <p>Minggu & Hari Besar: Libur</p>
+                        </div>
+                    </div>
+
+                    <div class="info-detail">
+                        <div class="info-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Kontak Telepon</h4>
+                            <p>(0741) 654321</p>
+                            <p>+62 812-3456-7890</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="map"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontak Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Hubungi Kami</h2>
+                <p>Kami siap membantu Anda dalam pemesanan, konsultasi desain, atau pertanyaan lainnya mengenai pakaian
+                    adat Jambi.</p>
+            </div>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Mari Berbicara Tentang Kebutuhan Adat Jambi Anda</h3>
+
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email Resmi</h4>
+                            <p>info@customadatjambi.com</p>
+                            <p>order@customadatjambi.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Telepon & Fax</h4>
+                            <p>(0741) 654321 - Kantor</p>
+                            <p>(0741) 654322 - Fax</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Alamat Workshop</h4>
+                            <p>Jl. Kapten Pattimura No. 45, Kota Jambi, Provinsi Jambi 36121</p>
+                        </div>
+                    </div>
+
+                    <div class="whatsapp-trigger">
+                        <h4>Hubungi via WhatsApp</h4>
+                        <button class="whatsapp-btn" id="whatsappTrigger">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Pilih Kontak WhatsApp</span>
+                        </button>
+                        <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">Klik tombol di atas untuk memilih
+                            salah satu dari 3 kontak WhatsApp kami</p>
+                    </div>
+                </div>
+
+                <div class="contact-image">
+                    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Kontak Custom Adat Jambi"
+                        style="width: 100%; border-radius: 20px; box-shadow: 0 25px 60px rgba(0,0,0,0.1);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Jenis Adat Modal -->
+    <div class="modal-overlay" id="jenisAdatModal">
+        <div class="jenis-adat-modal">
+            <div class="modal-header">
+                <h3>Jenis-Jenis Pakaian Adat Jambi</h3>
+                <button class="close-modal" id="closeJenisAdatModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="jenis-adat-content">
+                <div class="jenis-adat-grid" id="jenisAdatContainer">
+                    <!-- Items akan diisi oleh JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Modal -->
+    <div class="modal-overlay" id="whatsappModal">
+        <div class="wa-modal">
+            <div class="modal-header">
+                <h3>Pilih Kontak WhatsApp</h3>
+                <button class="close-modal" id="closeWhatsappModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <p>Silakan pilih salah satu kontak WhatsApp di bawah ini sesuai dengan kebutuhan Anda:</p>
+
+                <div class="wa-options">
+                    <a href="https://wa.me/6281234567890" class="wa-option" target="_blank">
+                        <div class="wa-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="wa-detail">
+                            <h4>Customer Service</h4>
+                            <p>0812-3456-7890 (Pelayanan 24 Jam)</p>
+                        </div>
+                    </a>
+
+                    <a href="https://wa.me/6289876543210" class="wa-option" target="_blank">
+                        <div class="wa-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="wa-detail">
+                            <h4>Penjualan & Pemesanan</h4>
+                            <p>0898-7654-3210 (Senin-Sabtu, 08.00-17.00)</p>
+                        </div>
+                    </a>
+
+                    <a href="https://wa.me/6281122334455" class="wa-option" target="_blank">
+                        <div class="wa-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="wa-detail">
+                            <h4>Konsultasi Desain</h4>
+                            <p>0811-2233-4455 (Khusus Konsultasi)</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Load navbar and footer
+        document.addEventListener('DOMContentLoaded', function () {
+            // Load navbar
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                    // Reinitialize navbar scripts
+                    initNavbarScripts();
+                });
+
+            // Load footer
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-container').innerHTML = data;
+                });
+        });
+
+        // Data jenis pakaian adat Jambi (40 jenis)
+        const jenisAdat = [
+            { id: 1, name: "Baju Kurung Tanggung", description: "Pakaian adat utama wanita Jambi dengan bentuk kurung longgar" },
+            { id: 2, name: "Teluk Belanga", description: "Pakaian adat pria Jambi berupa kemeja panjang dengan kain songket" },
+            { id: 3, name: "Baju Kurung Cekak Musang", description: "Varian baju kurung dengan leher cekak musang" },
+            { id: 4, name: "Baju Kurung Kebaya Pendek", description: "Perpaduan kurung dengan kebaya pendek" },
+            { id: 5, name: "Baju Kurung Lengan Pendek", description: "Baju kurung dengan lengan pendek untuk cuaca panas" },
+            { id: 6, name: "Baju Kurung Modern", description: "Baju kurung dengan sentuhan modern dan kontemporer" },
+            { id: 7, name: "Baju Kurung Pengantin", description: "Baju kurung khusus untuk pengantin wanita" },
+            { id: 8, name: "Baju Kurung Anak Perempuan", description: "Baju kurung mini untuk anak perempuan" },
+            { id: 9, name: "Baju Kurung Lansia", description: "Baju kurung dengan desain nyaman untuk lansia" },
+            { id: 10, name: "Baju Kurung Harian", description: "Baju kurung sederhana untuk penggunaan sehari-hari" },
+            { id: 11, name: "Teluk Belanga Mewah", description: "Teluk belanga dengan kain songket premium" },
+            { id: 12, name: "Teluk Belanga Sederhana", description: "Teluk belanga versi sederhana untuk acara informal" },
+            { id: 13, name: "Teluk Belanga Anak Laki-laki", description: "Teluk belanga ukuran anak-anak" },
+            { id: 14, name: "Teluk Belanga Pengantin", description: "Teluk belanga lengkap untuk pengantin pria" },
+            { id: 15, name: "Jas Tutup Tradisional", description: "Jas tutup dengan motif khas Jambi" },
+            { id: 16, name: "Jas Tutup Mewah", description: "Jas tutup dengan bahan premium dan detail sulaman" },
+            { id: 17, name: "Jas Tutup Modern", description: "Jas tutup dengan desain modern namun tradisional" },
+            { id: 18, name: "Jas Tutup Pernikahan", description: "Jas tutup khusus untuk acara pernikahan" },
+            { id: 19, name: "Jas Tutup Acara Resmi", description: "Jas tutup untuk acara resmi dan kenegaraan" },
+            { id: 20, name: "Kain Songket Jambi", description: "Kain songket tradisional dengan motif khas" },
+            { id: 21, name: "Selendang Songket", description: "Selendang dari kain songket Jambi" },
+            { id: 22, name: "Sarung Songket", description: "Sarung dari kain songket untuk pria" },
+            { id: 23, name: "Kain Tenun Jambi", description: "Kain tenun tradisional dengan teknik khusus" },
+            { id: 24, name: "Kain Tapis Jambi", description: "Kain tapis dengan motif geometris khas" },
+            { id: 25, name: "Keris Jambi", description: "Keris tradisional dengan hulu dan warangka khas" },
+            { id: 26, name: "Pending (Sabuk)", description: "Sabuk tradisional dengan hiasan logam" },
+            { id: 27, name: "Tengkuluk", description: "Penutup kepala wanita dengan hiasan emas" },
+            { id: 28, name: "Mahkota Pengantin", description: "Mahkota pengantin dengan hiasan emas dan permata" },
+            { id: 29, name: "Kalung Tradisional", description: "Kalung dengan desain tradisional Jambi" },
+            { id: 30, name: "Gelang Tangan", description: "Gelang tangan dengan motif khas" },
+            { id: 31, name: "Anting-anting Tradisional", description: "Anting-anting dengan desain tradisional" },
+            { id: 32, name: "Cincin Tradisional", description: "Cincin dengan batu permata khas Jambi" },
+            { id: 33, name: "Broş Tradisional", description: "Broş untuk menghias baju adat" },
+            { id: 34, name: "Ikat Pinggang Kulit", description: "Ikat pinggang dari kulit dengan hiasan logam" },
+            { id: 35, name: "Tas Tradisional", description: "Tas tangan dengan motif tradisional Jambi" },
+            { id: 36, name: "Sepatu Tradisional", description: "Sepatu dengan desain tradisional Jambi" },
+            { id: 37, name: "Payung Adat", description: "Payung dengan motif dan warna khas Jambi" },
+            { id: 38, name: "Sampur (Selendang)", description: "Sampur untuk menari atau acara adat" },
+            { id: 39, name: "Kain Pelangi", description: "Kain dengan gradien warna seperti pelangi" },
+            { id: 40, name: "Pakaian Penari", description: "Pakaian khusus untuk penari tradisional Jambi" }
+        ];
+
+        // Inisialisasi peta dengan lokasi yang Anda berikan
+        const map = L.map('map').setView([-1.6085651, 103.6060397], 17);
+
+        // Tambahkan tile layer untuk peta
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Tambahkan marker dengan ikon kustom
+        const customIcon = L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+            iconSize: [60, 60],
+            iconAnchor: [30, 60],
+            popupAnchor: [0, -60]
+        });
+
+        // Tambahkan marker di lokasi yang ditentukan
+        L.marker([-1.6085651, 103.6060397], { icon: customIcon })
+            .addTo(map)
+            .bindPopup(`
+                <div style="font-weight: bold; font-size: 18px; margin-bottom: 8px; color: #8B0000;">Custom Adat Jambi</div>
+                <div style="margin-bottom: 8px;"><strong>Alamat:</strong> Jl. Kapten Pattimura No. 45, Kota Jambi</div>
+                <div style="margin-bottom: 8px;"><strong>Jam:</strong> Senin-Jumat 08.00-17.00 WIB</div>
+                <div style="margin-bottom: 12px;"><strong>Telepon:</strong> (0741) 654321</div>
+                <a href="https://www.google.com/maps/@-1.6085651,103.6060397,3a,60y,345.57h,90.76t/data=!3m7!1e1!3m5!1swF7p-BKTsG3hRNdv23Ii3w!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-0.758148775242546%26panoid%3DwF7p-BKTsG3hRNdv23Ii3w%26yaw%3D345.5701398842694!7i16384!8i8192?authuser=1&entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="background: linear-gradient(135deg, #8B0000, #B22222); color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">Lihat Street View</a>
+            `)
+            .openPopup();
+
+        // Setup Jenis Adat Modal
+        const jenisAdatModal = document.getElementById('jenisAdatModal');
+        const heroJenisAdat = document.getElementById('heroJenisAdat');
+        const closeJenisAdatModal = document.getElementById('closeJenisAdatModal');
+
+        // Setup WhatsApp Modal
+        const whatsappModal = document.getElementById('whatsappModal');
+        const whatsappTrigger = document.getElementById('whatsappTrigger');
+        const closeWhatsappModal = document.getElementById('closeWhatsappModal');
+
+        // Render jenis adat
+        function renderJenisAdat() {
+            const jenisAdatContainer = document.getElementById('jenisAdatContainer');
+            jenisAdatContainer.innerHTML = '';
+
+            jenisAdat.forEach(item => {
+                const jenisAdatItem = document.createElement('div');
+                jenisAdatItem.className = 'jenis-adat-item';
+                jenisAdatItem.innerHTML = `
+                    <h4>${item.name}</h4>
+                    <p>${item.description}</p>
+                `;
+
+                jenisAdatContainer.appendChild(jenisAdatItem);
+            });
+        }
+
+        // Open Jenis Adat Modal
+        function openJenisAdatModal() {
+            jenisAdatModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Jenis Adat Modal
+        function closeJenisAdatModalFunc() {
+            jenisAdatModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Open WhatsApp Modal
+        function openWhatsappModal() {
+            whatsappModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close WhatsApp Modal
+        function closeWhatsappModalFunc() {
+            whatsappModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event Listeners
+        heroJenisAdat?.addEventListener('click', openJenisAdatModal);
+
+        whatsappTrigger?.addEventListener('click', openWhatsappModal);
+
+        closeJenisAdatModal?.addEventListener('click', closeJenisAdatModalFunc);
+        closeWhatsappModal?.addEventListener('click', closeWhatsappModalFunc);
+
+        // Close modals when clicking outside
+        jenisAdatModal?.addEventListener('click', (e) => {
+            if (e.target === jenisAdatModal) {
+                closeJenisAdatModalFunc();
+            }
+        });
+
+        whatsappModal?.addEventListener('click', (e) => {
+            if (e.target === whatsappModal) {
+                closeWhatsappModalFunc();
+            }
+        });
+
+        // Setup smooth scroll untuk navigation
+        document.addEventListener('click', function (e) {
+            if (e.target.matches('a[href^="#"]')) {
+                e.preventDefault();
+                const targetId = e.target.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+
+        // Initialize navbar scripts after loading
+        function initNavbarScripts() {
+            // Setup navbar jenis adat button
+            const navbarJenisAdat = document.getElementById('navbarJenisAdat');
+            navbarJenisAdat?.addEventListener('click', openJenisAdatModal);
+
+            // Setup footer links
+            const footerJenisAdat = document.getElementById('footerJenisAdat');
+            const footerWhatsapp = document.getElementById('footerWhatsapp');
+
+            footerJenisAdat?.addEventListener('click', (e) => {
+                e.preventDefault();
+                openJenisAdatModal();
+            });
+
+            footerWhatsapp?.addEventListener('click', (e) => {
+                e.preventDefault();
+                openWhatsappModal();
+            });
+        }
+
+        // Inisialisasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function () {
+            renderJenisAdat();
+
+            // Animasi untuk elemen yang masuk saat scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Terapkan animasi pada elemen
+            document.querySelectorAll('.info-detail, .contact-detail').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+
+</html>
