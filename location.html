@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary SEO -->
+    <title>Lokasi Workshop & Kontak Kostum Adat Jambi | Kota Jambi</title>
+    <meta name="description"
+        content="Cek lokasi workshop Kostum Adat Jambi di Kota Jambi, lihat peta, jam operasional, serta kontak WhatsApp/telepon dan email untuk pemesanan pakaian adat Jambi, jas tradisional, songket, dan aksesoris." />
+    <meta name="keywords"
+        content="lokasi kostum adat jambi,workshop pakaian adat jambi,alamat baju adat jambi,kontak kostum adat jambi,wa kostum adat jambi" />
+    <meta name="robots" content="index,follow" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Canonical (ganti dengan domain asli saat publish) -->
+    <link rel="canonical" href="https://example.com/location.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content="Kostum Adat Jambi" />
+    <meta property="og:title" content="Lokasi Workshop & Kontak Kostum Adat Jambi" />
+    <meta property="og:description"
+        content="Temukan lokasi workshop kami di Kota Jambi, jam operasional, dan kontak WhatsApp untuk pemesanan pakaian adat." />
+    <meta property="og:url" content="https://example.com/location.html" />
+    <meta property="og:image" content="https://example.com/image/logo.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lokasi Workshop & Kontak Kostum Adat Jambi" />
+    <meta name="twitter:description"
+        content="Lokasi workshop di Kota Jambi, jam buka, dan kontak WhatsApp/telepon untuk pemesanan." />
+    <meta name="twitter:image" content="https://example.com/image/logo.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="image/logo.png" type="image/png" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        :root {
+            --primary: #8B0000;
+            --secondary: #D4AF37;
+            --accent: #FFD700;
+            --light: #FFF8F0;
+            --dark: #2C1810;
+            --shadow: rgba(139, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient: linear-gradient(135deg, #8B0000 0%, #B22222 50%, #8B0000 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        /* Header Styles */
+        .location-header {
+            background: var(--gradient);
+            color: white;
+            padding: 120px 20px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .location-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .location-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .location-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Map Section */
+        .map-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .map-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            height: 500px;
+            position: relative;
+        }
+
+        #locationMap {
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            z-index: 1000;
+        }
+
+        .map-overlay h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .map-overlay p {
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .map-overlay i {
+            color: var(--secondary);
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        /* Contact Info Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .contact-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .contact-card p {
+            color: var(--dark);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .contact-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .contact-card a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        /* Business Hours */
+        .hours-section {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 60px;
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .day-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .day-card:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .day-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: inherit;
+        }
+
+        .day-card p {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .day-card.current-day {
+            background: var(--gradient);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(139, 0, 0, 0.2);
+        }
+
+        /* Contact Form */
+        .form-section {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+        }
+
+        .submit-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 20px rgba(139, 0, 0, 0.2);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(139, 0, 0, 0.3);
+            background: linear-gradient(135deg, #B22222 0%, #8B0000 100%);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .location-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .location-header {
+                padding: 100px 20px 40px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .map-wrapper {
+                height: 400px;
+            }
+
+            .map-overlay {
+                position: relative;
+                top: 0;
+                left: 0;
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .contact-card,
+            .hours-section,
+            .form-section {
+                padding: 25px;
+            }
+
+            .location-container {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .location-header h1 {
+                font-size: 2rem;
+            }
+
+            .map-wrapper {
+                height: 300px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hours-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Include your existing navbar CSS here */
+        /* Copy all navbar styles from your original code */
+        /* I'll include a simplified version for reference */
+        .main-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 248, 240, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .main-navbar.hidden {
+            transform: translateY(-100%);
+        }
+
+        .main-navbar.scrolled {
+            background: rgba(255, 248, 240, 0.98);
+            box-shadow: 0 10px 40px rgba(139, 0, 0, 0.15);
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-icon img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-right: 12px;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+        }
+
+        /* Bottom nav styles */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            z-index: 1001;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 992px) {
+            .main-navbar {
+                display: none;
+            }
+
+            .bottom-nav {
+                display: block;
+            }
+
+            body {
+                padding-bottom: 70px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Include Navbar (partial) -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <header class="location-header">
+        <h1><i class="fas fa-map-marker-alt"></i> Lokasi & Kontak</h1>
+        <p>Temukan lokasi workshop kami dan hubungi kami untuk pemesanan baju adat Jambi kostum</p>
+    </header>
+
+    <main class="location-container">
+        <!-- Map Section -->
+        <section class="map-section" id="maps">
+            <h2 class="section-title">Lokasi Workshop</h2>
+            <div class="map-wrapper">
+                <div id="locationMap"></div>
+                <div class="map-overlay">
+                    <h3><i class="fas fa-store"></i> Kostum Adat Jambi</h3>
+                    <p><i class="fas fa-map-pin"></i> Jl. Sultan Thaha No. 123, Kota Jambi</p>
+                    <p><i class="fas fa-city"></i> Provinsi Jambi, Indonesia</p>
+                    <p><i class="fas fa-phone"></i> +62 812-3456-7890</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Information -->
+        <section class="contact-section" id="contact">
+            <h2 class="section-title">Informasi Kontak</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Telepon & WhatsApp</h3>
+                    <p>+62 812-3456-7890</p>
+                    <p>+62 823-4567-8901</p>
+                    <a href="https://wa.me/6281234567890" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Chat via WhatsApp
+                    </a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>info@kostumadatjambi.com</p>
+                    <p>order@kostumadatjambi.com</p>
+                    <a href="mailto:info@kostumadatjambi.com">
+                        <i class="fas fa-paper-plane"></i> Kirim Email
+                    </a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Jam Operasional</h3>
+                    <p>Senin - Jumat: 08:00 - 17:00</p>
+                    <p>Sabtu: 08:00 - 15:00</p>
+                    <p>Minggu: Libur</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Business Hours -->
+        <section class="hours-section">
+            <h2 class="section-title">Jam Buka</h2>
+            <div class="hours-grid" id="hoursGrid">
+                <!-- Hours will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Contact Form -->
+        <section class="form-section">
+            <h2 class="section-title">Kirim Pesan</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name"><i class="fas fa-user"></i> Nama Lengkap</label>
+                    <input type="text" id="name" name="name" required placeholder="Masukkan nama lengkap Anda">
+                </div>
+
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="email" name="email" required placeholder="nama@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone"><i class="fas fa-phone"></i> Nomor Telepon</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="08xxxxxxxxxx">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject"><i class="fas fa-tag"></i> Subjek</label>
+                    <input type="text" id="subject" name="subject" required placeholder="Subjek pesan">
+                </div>
+
+                <div class="form-group">
+                    <label for="message"><i class="fas fa-comment"></i> Pesan</label>
+                    <textarea id="message" name="message" rows="5" required
+                        placeholder="Tulis pesan Anda di sini..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Kirim Pesan
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Include Footer (partial) -->
+    <div id="footer-container"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Load navbar & footer partials
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('navbar.html')
+                .then(r => r.text())
+                .then(html => {
+                    document.getElementById('navbar-container').innerHTML = html;
+                })
+                .catch(() => {
+                    document.getElementById('navbar-container').innerHTML = '';
+                });
+
+            fetch('footer.html')
+                .then(r => r.text())
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                })
+                .catch(() => {
+                    document.getElementById('footer-container').innerHTML = '';
+                });
+        });
+
+        // Initialize Map
+        function initMap() {
+            // Koordinat Jambi (contoh lokasi)
+            const jambiLocation = [-1.6100, 103.6071];
+
+            // Create map
+            const map = L.map('locationMap').setView(jambiLocation, 15);
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Add kostum marker
+            const kostumIcon = L.divIcon({
+                className: 'kostum-marker',
+                html: '<i class="fas fa-map-marker-alt" style="color: #8B0000; font-size: 40px;"></i>',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40]
+            });
+
+            // Add marker to map
+            L.marker(jambiLocation, { icon: kostumIcon })
+                .addTo(map)
+                .bindPopup('<b>Kostum Adat Jambi</b><br>Workshop Baju Adat Jambi Kostum')
+                .openPopup();
+
+            // Add circle around location
+            L.circle(jambiLocation, {
+                color: '#8B0000',
+                fillColor: '#8B0000',
+                fillOpacity: 0.1,
+                radius: 200
+            }).addTo(map);
+        }
+
+        // Populate Business Hours
+        function populateBusinessHours() {
+            const hoursGrid = document.getElementById('hoursGrid');
+            const days = [
+                { name: 'Senin', hours: '08:00 - 17:00' },
+                { name: 'Selasa', hours: '08:00 - 17:00' },
+                { name: 'Rabu', hours: '08:00 - 17:00' },
+                { name: 'Kamis', hours: '08:00 - 17:00' },
+                { name: 'Jumat', hours: '08:00 - 17:00' },
+                { name: 'Sabtu', hours: '08:00 - 15:00' },
+                { name: 'Minggu', hours: 'Libur' }
+            ];
+
+            const today = new Date().getDay(); // 0 = Sunday, 1 = Monday, etc.
+
+            hoursGrid.innerHTML = days.map((day, index) => {
+                const isToday = (index === today - 1) || (today === 0 && index === 6);
+                return `
+                    <div class="day-card ${isToday ? 'current-day' : ''}">
+                        <h4>${day.name}</h4>
+                        <p>${day.hours}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Handle Contact Form Submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+
+            // Here you would typically send the data to a server
+            // For now, just show an alert
+            alert('Terima kasih! Pesan Anda telah dikirim. Kami akan menghubungi Anda segera.');
+
+            // Reset form
+            document.getElementById('contactForm').reset();
+        }
+
+        // Navigation Script: di-handle oleh navbar.html partial
+        function initNavigation() {
+            // no-op
+            document.getElementById('contactForm')?.addEventListener('submit', handleFormSubmit);
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            initMap();
+            populateBusinessHours();
+            initNavigation();
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    if (this.getAttribute('href') === '#') return;
+
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
