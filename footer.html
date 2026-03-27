@@ -1,0 +1,251 @@
+<!-- footer.html (partial) - di-load via fetch() dari setiap halaman. -->
+
+<footer class="main-footer" aria-label="Footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">Kostum Adat Nusantara</div>
+                <p class="footer-desc">
+                    Penyedia jasa sewa pakaian adat Nusantara, Jas, dan Jasco terbaik di Jambi. Melestarikan warisan budaya dengan kualitas premium dan desain autentik.
+                </p>
+                <div class="social-icons" aria-label="Sosial media">
+                    <a href="https://www.instagram.com/kostum_adat_nusantara/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/6282323431676" id="footerWhatsapp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Tautan Cepat</h4>
+                <ul>
+                    <li><a href="index">Beranda</a></li>
+                    <li><a href="#" id="footerJenisAdat">Jenis Pakaian Adat</a></li>
+                    <li><a href="gallery">Galeri Koleksi</a></li>
+                    <li><a href="location">Lokasi Workshop</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Kategori Produk</h4>
+                <ul>
+                    <li><a href="gallery.html?category=all">Semua Kategori</a></li>
+                    <li><a href="gallery.html?category=pakaian-adat">Pakaian Adat</a></li>
+                    <li><a href="gallery.html?category=jas">Jas Tradisional</a></li>
+                    <li><a href="gallery.html?category=aksesoris">Aksesoris</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Info Kontak</h4>
+                <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span>Jl. Penyengat, Perumahan Kreasi Pura, Lebak Bandung, Kota Jambi</span></p>
+                <p><i class="fas fa-phone-alt" aria-hidden="true"></i><span>0823-2343-1676 / 0812-7495-6429</span></p>
+                <p><i class="fas fa-envelope" aria-hidden="true"></i><span>penyewaankostum@gmail.com</span></p>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2024 Kostum Adat Nusantara. Semua hak dilindungi.
+        </div>
+    </div>
+</footer>
+
+<style>
+    :root {
+        --primary: #8B0000;
+        --secondary: #D4AF37;
+        --accent: #FFD700;
+        --gradient: linear-gradient(135deg, #8B0000 0%, #B22222 50%, #8B0000 100%);
+    }
+
+    .main-footer {
+        background: var(--gradient);
+        color: rgba(255, 255, 255, 0.92);
+        padding: 56px 0 22px;
+        position: relative;
+        overflow: hidden;
+        display: block;
+        margin: 0;
+    }
+
+    #footer-container {
+        background: var(--gradient);
+        margin: 0;
+        padding: 0;
+    }
+
+    #footer-container > .main-footer {
+        margin: 0;
+    }
+
+    .main-footer::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at 15% 20%, rgba(255, 215, 0, 0.12), transparent 55%),
+            radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.08), transparent 55%);
+        pointer-events: none;
+    }
+
+    .footer-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr 1fr 1.2fr;
+        gap: 42px;
+        margin-bottom: 34px;
+    }
+
+    .footer-logo {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.9rem;
+        font-weight: 900;
+        margin-bottom: 14px;
+        color: var(--accent);
+        letter-spacing: 0.2px;
+    }
+
+    .footer-desc {
+        opacity: 0.92;
+        margin-bottom: 18px;
+        font-size: 1rem;
+        line-height: 1.75;
+    }
+
+    .social-icons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .social-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.10);
+        color: rgba(255, 255, 255, 0.95);
+        border-radius: 999px;
+        font-size: 1.05rem;
+        transition: 0.25s ease;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        text-decoration: none;
+    }
+
+    .social-icons a:hover {
+        background: rgba(255, 255, 255, 0.92);
+        color: var(--primary);
+        transform: translateY(-2px);
+    }
+
+    .footer-links h4,
+    .footer-contact h4 {
+        font-size: 1.25rem;
+        margin-bottom: 14px;
+        color: var(--accent);
+        font-family: 'Cormorant Garamond', serif;
+    }
+
+    .footer-links ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 10px;
+    }
+
+    .footer-links ul li a {
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        transition: 0.25s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+        padding-left: 14px;
+    }
+
+    .footer-links ul li a::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 99px;
+        background: rgba(255, 255, 255, 0.45);
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .footer-links ul li a:hover {
+        color: var(--accent);
+    }
+
+    .footer-links ul li a:hover::before {
+        background: var(--accent);
+    }
+
+    .footer-contact p {
+        margin: 0 0 10px;
+        display: grid;
+        grid-template-columns: 18px 1fr;
+        gap: 12px;
+        align-items: start;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .footer-contact i {
+        color: rgba(255, 215, 0, 0.95);
+        font-size: 1rem;
+        margin-top: 2px;
+    }
+
+    .copyright {
+        text-align: center;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        opacity: 0.86;
+        font-size: 0.95rem;
+    }
+
+    @media (max-width: 1200px) {
+        .footer-content {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .main-footer {
+            padding: 44px 0 20px;
+        }
+
+        .footer-content {
+            grid-template-columns: 1fr;
+            gap: 26px;
+        }
+
+        .footer-logo {
+            font-size: 1.7rem;
+        }
+    }
+</style>
+
+<script>
+    // Cegah footer.html diakses langsung: redirect.
+    (function () {
+        const path = (window.location.pathname || '').replace(/\\/g, '/');
+        if (path.endsWith('/footer.html') || path.endsWith('footer.html')) {
+            window.location.replace('index.html');
+        }
+    })();
+</script>

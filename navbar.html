@@ -1,0 +1,414 @@
+<!-- navbar.html (partial) - di-load via fetch() dari setiap halaman. -->
+
+<nav class="main-navbar" id="mainNavbar">
+    <div class="navbar-container">
+        <a href="index" class="navbar-logo" aria-label="Kembali ke Beranda">
+            <div class="logo-icon">
+                <img src="image/logo.png" alt="Logo Kostum Adat Nusantara - Tempat Sewa Baju Adat Jambi Terlengkap di Lebak Bandung">
+            </div>
+            <div class="logo-text">Kostum <span>Adat Nusantara</span></div>
+        </a>
+
+        <ul class="navbar-menu" id="navbarMenu">
+            <li><a href="index" data-page="beranda"><i class="fas fa-home"></i> Beranda</a></li>
+            <li><a href="gallery" data-page="galeri"><i class="fas fa-images"></i> Galeri</a></li>
+            <li><a href="location" data-page="lokasi"><i class="fas fa-map-marked-alt"></i> Lokasi</a></li>
+            <li><a href="kontak" data-page="kontak"><i class="fas fa-phone-alt"></i> Kontak</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Bottom Navigation Mobile -->
+<nav class="bottom-nav" id="bottomNav" aria-label="Navigasi bawah">
+    <ul class="bottom-nav-menu">
+        <li class="bottom-nav-item">
+            <a href="index" class="bottom-nav-link" data-page="beranda">
+                <i class="fas fa-home" aria-hidden="true"></i>
+                <span>Beranda</span>
+            </a>
+        </li>
+        <li class="bottom-nav-item">
+            <a href="gallery" class="bottom-nav-link" data-page="galeri">
+                <i class="fas fa-images" aria-hidden="true"></i>
+                <span>Galeri</span>
+            </a>
+        </li>
+        <li class="bottom-nav-item">
+            <a href="location" class="bottom-nav-link" data-page="lokasi">
+                <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+                <span>Lokasi</span>
+            </a>
+        </li>
+        <li class="bottom-nav-item">
+            <a href="kontak" class="bottom-nav-link" data-page="kontak">
+                <i class="fas fa-phone-alt" aria-hidden="true"></i>
+                <span>Kontak</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<style>
+    :root {
+        --primary: #8B0000;
+        --secondary: #D4AF37;
+        --accent: #FFD700;
+        --light: #FFF8F0;
+        --dark: #2C1810;
+        --shadow: rgba(139, 0, 0, 0.15);
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --gradient: linear-gradient(135deg, #8B0000 0%, #B22222 50%, #8B0000 100%);
+    }
+
+    /* Navbar Styles - Desktop */
+    .main-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background: rgba(255, 248, 240, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+    }
+
+    .main-navbar.hidden {
+        transform: translateY(-100%);
+    }
+
+    .main-navbar.scrolled {
+        background: rgba(255, 248, 240, 0.98);
+        box-shadow: 0 10px 40px rgba(139, 0, 0, 0.15);
+    }
+
+    .navbar-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .main-navbar.scrolled .navbar-container {
+        padding: 10px 20px;
+    }
+
+    .navbar-logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        min-width: 0;
+    }
+
+    .navbar-logo:hover {
+        transform: scale(1.02);
+    }
+
+    .logo-icon img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        margin-right: 12px;
+        transition: var(--transition);
+    }
+
+    .main-navbar.scrolled .logo-icon img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .logo-text {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: var(--primary);
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+
+    .logo-text span {
+        color: var(--secondary);
+        position: relative;
+    }
+
+    .logo-text span::after {
+        content: '';
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 2px;
+    }
+
+    /* Navigation Menu - Desktop */
+    .navbar-menu {
+        display: flex;
+        list-style: none;
+        gap: 26px;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar-menu li a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 600;
+        font-size: 1rem;
+        position: relative;
+        padding: 8px 0;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+    }
+
+    .navbar-menu li a i {
+        font-size: 1rem;
+        transition: var(--transition);
+        min-width: 16px;
+    }
+
+    .navbar-menu li a::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--gradient);
+        transition: var(--transition);
+        border-radius: 3px;
+    }
+
+    .navbar-menu li a:hover {
+        color: var(--primary);
+    }
+
+    .navbar-menu li a:hover::before,
+    .navbar-menu li a.active::before {
+        width: 100%;
+    }
+
+    .navbar-menu li a.active {
+        color: var(--primary);
+    }
+
+    /* Bottom Navigation - Mobile */
+    .bottom-nav {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: white;
+        z-index: 1001;
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        border-top: 1px solid rgba(139, 0, 0, 0.1);
+        padding: 8px 0;
+    }
+
+    .bottom-nav-menu {
+        display: flex;
+        list-style: none;
+        justify-content: space-around;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .bottom-nav-item {
+        flex: 1;
+        text-align: center;
+    }
+
+    .bottom-nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: var(--dark);
+        padding: 10px 6px;
+        border-radius: 14px;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        transform: translateZ(0);
+    }
+
+    .bottom-nav-link i {
+        font-size: 1.2rem;
+        margin-bottom: 4px;
+        color: var(--dark);
+        transition: var(--transition);
+    }
+
+    .bottom-nav-link span {
+        font-size: 0.7rem;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+
+    /* Active lebih berwarna */
+    .bottom-nav-link.active {
+        background: var(--gradient);
+        box-shadow: 0 10px 22px rgba(139, 0, 0, 0.22);
+        transform: translateY(-3px);
+    }
+
+    .bottom-nav-link.active i,
+    .bottom-nav-link.active span {
+        color: rgba(255, 255, 255, 0.98);
+    }
+
+    /* Accent garis kecil di atas item aktif */
+    .bottom-nav-link.active::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 22px;
+        height: 3px;
+        background: var(--accent);
+        border-radius: 999px;
+        opacity: 0.95;
+    }
+
+    .bottom-nav-link:hover {
+        background: rgba(139, 0, 0, 0.07);
+        transform: translateY(-2px);
+    }
+
+    .bottom-nav-link:hover i {
+        color: var(--primary);
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 992px) {
+        .main-navbar {
+            display: none;
+        }
+
+        .bottom-nav {
+            display: block;
+        }
+
+        body {
+            padding-bottom: 70px;
+        }
+    }
+</style>
+
+<script>
+    // Penanganan Active State (tetap ada di sini agar segera dieksekusi setelah fetch)
+    (function () {
+        function normalizePath(pathname) {
+            const p = (pathname || '').replace(/\\/g, '/');
+            if (p.endsWith('/') || p === '') return 'index';
+            const file = p.split('/').pop();
+            return file.endsWith('.html') ? file.slice(0, -5) : file;
+        }
+
+        function currentPageKey() {
+            const file = normalizePath(window.location.pathname);
+            if (file === 'index' || file === '') return 'beranda';
+            if (file === 'gallery') return 'galeri';
+            if (file === 'location') return 'lokasi';
+            if (file === 'kontak') return 'kontak';
+            return 'beranda';
+        }
+
+        function setActiveByKey(key) {
+            document.querySelectorAll('.bottom-nav-link, .navbar-menu a').forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('data-page') === key) a.classList.add('active');
+            });
+        }
+
+        function setActiveForCurrentPage() {
+            setActiveByKey(currentPageKey());
+        }
+
+        // Index: ganti aktif berdasarkan section yg terlihat
+        function bindIndexSectionObserver() {
+            const file = normalizePath(window.location.pathname);
+            if (file !== 'index') return;
+
+            const maps = document.getElementById('maps');
+            if (!maps) return;
+
+            const obs = new IntersectionObserver((entries) => {
+                const visible = entries
+                    .filter(e => e.isIntersecting)
+                    .sort((a, b) => (b.intersectionRatio || 0) - (a.intersectionRatio || 0));
+
+                if (visible.length === 0) return;
+
+                const id = visible[0].target.id;
+                if (id === 'maps') setActiveByKey('lokasi');
+                else setActiveByKey('beranda');
+            }, { threshold: [0.25, 0.5, 0.75] });
+
+            obs.observe(maps);
+        }
+
+        // Update display mode + body padding
+        function updateNavigation() {
+            const navbar = document.getElementById('mainNavbar');
+            const bottomNav = document.getElementById('bottomNav');
+            if (!navbar || !bottomNav) return;
+
+            if (window.innerWidth <= 992) {
+                navbar.style.display = 'none';
+                bottomNav.style.display = 'block';
+                document.body.style.paddingBottom = '70px';
+            } else {
+                navbar.style.display = 'block';
+                bottomNav.style.display = 'none';
+                document.body.style.paddingBottom = '0';
+            }
+        }
+
+        // Hide navbar on scroll (desktop)
+        let lastScrollTop = 0;
+        function handleScroll() {
+            const navbar = document.getElementById('mainNavbar');
+            if (!navbar) return;
+
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (window.innerWidth > 992) {
+                if (scrollTop > 100) navbar.classList.add('scrolled');
+                else navbar.classList.remove('scrolled');
+
+                const navbarHeight = navbar.offsetHeight || 0;
+                if (scrollTop > lastScrollTop && scrollTop > navbarHeight) navbar.classList.add('hidden');
+                else navbar.classList.remove('hidden');
+            }
+
+            lastScrollTop = scrollTop;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            setActiveForCurrentPage();
+            updateNavigation();
+            bindIndexSectionObserver();
+
+            window.addEventListener('resize', updateNavigation);
+            window.addEventListener('scroll', handleScroll);
+            window.addEventListener('hashchange', setActiveForCurrentPage);
+        });
+
+        if (document.readyState !== 'loading') {
+            setActiveForCurrentPage();
+            updateNavigation();
+        }
+    })();
+</script>

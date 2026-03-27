@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Smart Router (Handle Pretty URLs) -->
+    <script src="js/router.js"></script>
+
+    <!-- Primary SEO -->
+    <title>Galeri Kostum Adat Nusantara - Koleksi Sewa Pakaian Adat & Jas di Jambi</title>
+    <meta name="description"
+        content="Lihat galeri koleksi Kostum Adat Nusantara: Pakaian adat seluruh Indonesia, Jas formal, dan Jasco. Lebih dari 300+ pilihan tersedia untuk disewa di workshop kami di Jambi." />
+    <meta name="keywords"
+        content="galeri pakaian adat nusantara, sewa jas jambi, jasco jambi, sewa baju adat jambi, galeri kostum nusantara, persewaan baju adat" />
+    <meta name="robots" content="index,follow" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Canonical (ganti dengan domain asli saat publish) -->
+    <link rel="canonical" href="https://kostum-adatnusantara.vercel.app/gallery" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content="Kostum Adat Nusantara" />
+    <meta property="og:title" content="Galeri Koleksi Sewa Baju Adat Jambi | Kostum Adat Nusantara" />
+    <meta property="og:description"
+        content="Lihat koleksi terlengkap sewa pakaian adat Jambi, Jas formal, dan Jasco premium. Melayani Lebak Bandung dan seluruh area Jambi. Koleksi 38 provinsi tersedia." />
+    <meta property="og:url" content="https://kostum-adatnusantara.vercel.app/gallery" />
+    <meta property="og:image" content="https://kostum-adatnusantara.vercel.app/image/logo.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Galeri Kostum Adat Nusantara Jambi" />
+    <meta name="twitter:description"
+        content="Lihat koleksi sewa pakaian adat Nusantara, Jas, dan Jasco terlengkap di Jambi." />
+    <meta name="twitter:image" content="https://kostum-adatnusantara.vercel.app/image/logo.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="image/logo.png" type="image/png" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    
+    <!-- Smooth Scroll (Lenis) -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #5D0E0E; /* Darker Maroon */
+            --secondary: #C5A059; /* Muted Gold */
+            --accent: #FFD700;
+            --light: #FAF9F6;
+            --dark: #1A0F0A;
+            --text: #2D2D2D;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --gradient: linear-gradient(135deg, #5D0E0E 0%, #8B0000 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Lenis Smooth Scroll setup */
+        html.lenis {
+            height: auto;
+        }
+        .lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+        .lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+        .lenis-stopped {
+            overflow: hidden;
+        }
+        .lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        #preloader.loaded {
+            transform: translateY(-100%);
+            pointer-events: none;
+        }
+
+        .loader-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 2px;
+            background: rgba(255, 215, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loader-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            background: var(--accent);
+            animation: progress 2.5s ease-in-out forwards;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(0.95); }
+        }
+
+        @keyframes progress {
+            to { width: 100%; }
+        }
+
+        /* Hero & Section */
+        .gallery-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 20px 100px;
+            background: linear-gradient(rgba(26, 15, 10, 0.85), rgba(93, 14, 14, 0.75)),
+                url('image/bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            text-align: center;
+        }
+
+        .gallery-hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-hero h1 {
+            font-size: 4.5rem;
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .gallery-hero p {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 40px;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before { left: 100%; }
+
+        .btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(139, 0, 0, 0.4);
+        }
+
+        .btn i {
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .btn:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 100px 0;
+            background-color: white;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 3.2rem;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .section-title h2::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Media Type Tabs - New Grid Layout */
+        .media-tabs-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 65px;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .media-tabs-grid .tab-btn {
+            width: 100%;
+            justify-content: center;
+            opacity: 1;
+            border: 2px solid rgba(139, 0, 0, 0.1);
+            border-radius: 14px;
+            padding: 16px;
+            background: white;
+            color: var(--secondary);
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .media-tabs-grid .tab-btn.active {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .media-tabs-grid .tab-btn i {
+            font-size: 1.2rem;
+        }
+
+        .tab-row-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Gallery Filters */
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 60px;
+        }
+
+        .filter-btn {
+            padding: 14px 30px;
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            color: var(--primary);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .filter-btn:hover::before,
+        .filter-btn.active::before { left: 0; }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            width: 100%;
+            transition: all 0.5s ease;
+        }
+        
+        /* Layout-1col: Semua Koleksi (Desktop & Mobile) */
+        .layout-1col {
+            grid-template-columns: 1fr;
+            gap: 50px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* Layout-2col: Foto & Video */
+        .layout-2col {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        /* Default Desktop Grid (3+ cols) */
+        .layout-default {
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 25px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            will-change: transform, opacity;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .gallery-item.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.7));
+            z-index: 1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-20px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(139, 0, 0, 0.2);
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .gallery-item:hover .gallery-img { transform: scale(1.04); }
+
+        .gallery-info {
+            padding: 20px;
+            background: white;
+            transition: background 0.3s;
+        }
+
+        .gallery-item:hover .gallery-info {
+            background: var(--light);
+        }
+
+        .gallery-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .gallery-category {
+            font-size: 0.75rem;
+            color: var(--secondary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .item-placeholder {
+            width: 100%;
+            aspect-ratio: 4/5;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .video-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(93, 14, 14, 0.8);
+            backdrop-filter: blur(8px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            z-index: 5;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 2px solid rgba(255,215,0,0.3);
+        }
+
+        .gallery-item:hover .video-indicator {
+            background: var(--primary);
+            transform: translate(-50%, -50%) scale(1.1);
+            color: var(--accent);
+        }
+
+        /* Popup Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .modal-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
+
+        .jenis-adat-modal {
+            background: white;
+            border-radius: 25px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            animation: modalSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-header {
+            background: var(--gradient);
+            padding: 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .modal-header h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        /* Jenis Adat Modal Content */
+        .jenis-adat-content {
+            padding: 40px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .jenis-adat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .jenis-adat-item {
+            background: #f9f5f0;
+            border-radius: 15px;
+            padding: 25px;
+            transition: var(--transition);
+            border-left: 5px solid var(--primary);
+            cursor: pointer;
+        }
+
+        .jenis-adat-item:hover {
+            transform: translateY(-5px);
+            background: var(--primary);
+            color: white;
+        }
+
+        .jenis-adat-item:hover h4,
+        .jenis-adat-item:hover p {
+            color: white;
+        }
+
+        .jenis-adat-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .jenis-adat-item p {
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* Sub Filters Container */
+        .sub-filters-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+        }
+
+        .sub-filters-container.show {
+            max-height: 300px;
+            margin-bottom: 40px;
+        }
+
+        .sub-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px;
+            background: rgba(139, 0, 0, 0.03);
+            border-radius: 15px;
+            border: 1px dashed rgba(139, 0, 0, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 1000px;
+            }
+
+            .gallery-grid.layout-default {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                max-width: 750px;
+            }
+
+            .gallery-hero h1 {
+                font-size: 3rem;
+            }
+
+            .gallery-hero p {
+                font-size: 1.3rem;
+            }
+
+            .gallery-section {
+                padding: 80px 0;
+            }
+
+            .section-title h2 {
+                font-size: 2.8rem;
+            }
+
+            .jenis-adat-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .gallery-hero {
+                padding: 100px 20px 60px;
+            }
+
+            .gallery-hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .gallery-hero p {
+                font-size: 1.2rem;
+            }
+
+            .gallery-grid.layout-default,
+            .gallery-grid.layout-2col {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .gallery-grid.layout-1col {
+                gap: 30px;
+            }
+
+            .media-tabs-grid {
+                max-width: 100%;
+                padding: 0 5px;
+            }
+
+            .media-tabs-grid .tab-btn {
+                font-size: 0.95rem;
+                padding: 14px;
+            }
+
+            /* Adjust Filter Buttons for Mobile */
+            .gallery-filters {
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                gap: 8px;
+                padding-top: 20px;
+                padding-bottom: 25px;
+                margin-top: -15px; 
+                scrollbar-width: none;
+            }
+
+            .gallery-filters::-webkit-scrollbar {
+                display: none;
+            }
+
+            .filter-btn {
+                padding: 10px 18px;
+                font-size: 0.85rem;
+                flex-shrink: 0;
+            }
+            
+            /* Styles for 'Lainnya' filters on mobile */
+            .sub-filters {
+                justify-content: flex-start;
+                padding-top: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Premium Preloader -->
+    <div id="preloader">
+        <img src="image/logo.png" alt="Logo" class="loader-logo">
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
+    <!-- Include Navbar -->
+    <div id="navbar-container"></div>
+
+    <!-- Gallery Hero -->
+    <section class="gallery-hero">
+        <div class="container">
+            <div class="gallery-hero-content">
+            <h1>Galeri Sewa Baju Adat Jambi Terlengkap</h1>
+            <p>Jelajahi koleksi terlengkap Kostum Adat Nusantara, Jas formal, dan Jasco di Jambi. Setiap item dirawat dengan standar kualitas tinggi untuk momen spesial Anda.</p>
+            <button class="btn" id="heroJenisAdat" style="margin-top: 30px;">
+                <i class="fas fa-tshirt"></i> Lihat Semua Jenis Koleksi
+            </button>
+        </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Koleksi Sewa Baju Adat, Jas & Jasco Jambi</h2>
+                <p>Pilih dari berbagai kategori koleksi sewa kami. Mulai dari pakaian adat Nusantara, Jas formal, hingga Jasco dengan kualitas premium di Jambi.</p>
+            </div>
+
+            <div class="media-tabs-grid">
+                <button class="tab-btn active" data-type="all">
+                    <i class="fas fa-th-large"></i> Semua Koleksi
+                </button>
+                <div class="tab-row-grid">
+                    <button class="tab-btn" data-type="image">
+                        <i class="fas fa-camera-retro"></i> Koleksi Foto
+                    </button>
+                    <button class="tab-btn" data-type="video">
+                        <i class="fas fa-video"></i> Koleksi Video
+                    </button>
+                </div>
+            </div>
+
+            <div class="gallery-filters" id="regionFilters">
+                <button class="filter-btn active" data-filter="all">Semua Wilayah</button>
+                <button class="filter-btn" data-filter="Sumatera">Sumatera</button>
+                <button class="filter-btn" data-filter="Jawa">Jawa</button>
+                <button class="filter-btn" data-filter="Kalimantan">Kalimantan</button>
+                <button class="filter-btn" data-filter="Sulawesi">Sulawesi</button>
+                <button class="filter-btn" id="toggleOthers">
+                    <i class="fas fa-ellipsis-h" style="margin-right: 5px;"></i> Lainnya
+                </button>
+            </div>
+
+            <!-- Lainnya Submenu -->
+            <div class="sub-filters-container" id="subFiltersContainer">
+                <div class="sub-filters">
+                    <button class="filter-btn" data-filter="Bali">Bali</button>
+                    <button class="filter-btn" data-filter="Nusa Tenggara">Nusa Tenggara</button>
+                    <button class="filter-btn" data-filter="Papua">Papua</button>
+                    <button class="filter-btn" data-filter="Profesi">Profesi</button>
+                    <button class="filter-btn" data-filter="Pahlawan">Pahlawan</button>
+                </div>
+            </div>
+
+            <div class="gallery-grid" id="galleryContainer">
+                <!-- Items akan diisi oleh JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Include Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Jenis Adat Modal -->
+    <div class="modal-overlay" id="jenisAdatModal">
+        <div class="jenis-adat-modal">
+            <div class="modal-header">
+                <h3>Jenis Pakaian Adat, Jas & Jasco</h3>
+                <button class="close-modal" id="closeJenisAdatModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="jenis-adat-content">
+                <div class="jenis-adat-grid" id="jenisAdatContainer">
+                    <!-- Items akan diisi oleh JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/gallery-data.js"></script>
+    <script>
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {            // Load navbar
+            fetch('navbar.html?v=1.1')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                    // Reinitialize navbar scripts
+                    initNavbarScripts();
+                    // Update active link
+                    updateActiveNavLink();
+                });
+
+            // Load footer
+            fetch('footer.html?v=1.1')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-container').innerHTML = data;
+                    // Reinitialize footer scripts
+                    initFooterScripts();
+                });
+
+            renderGallery();
+            setupFilterListeners();
+        });
+
+        // Initialize Lenis Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Preloader fallback and logic
+        function hidePreloader() {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.classList.add('loaded');
+            }
+        }
+
+        window.addEventListener('load', hidePreloader);
+        // Fallback: hide preloader after 5 seconds if load event doesn't fire
+        setTimeout(hidePreloader, 5000);
+
+        // Hero Parallax on Mouse Move
+        document.addEventListener('mousemove', (e) => {
+            const hero = document.querySelector('.gallery-hero');
+            if (hero) {
+                const { clientX, clientY } = e;
+                const { innerWidth, innerHeight } = window;
+                const xPos = (clientX / innerWidth - 0.5) * 20;
+                const yPos = (clientY / innerHeight - 0.5) * 20;
+                hero.style.backgroundPosition = `calc(50% + ${xPos}px) calc(50% + ${yPos}px)`;
+            }
+        });
+
+        let currentType = 'all';
+        let currentRegion = 'all';
+
+        function renderGallery() {
+            const container = document.getElementById('galleryContainer');
+            container.innerHTML = '';
+
+            // Update layout class based on type
+            container.className = 'gallery-grid';
+            if (currentType === 'all') {
+                container.classList.add('layout-1col');
+            } else {
+                container.classList.add('layout-2col');
+            }
+
+            const filteredItems = galleryData.filter(item => {
+                const matchType = currentType === 'all' || item.type === currentType;
+                const matchRegion = currentRegion === 'all' || item.category === currentRegion;
+                return matchType && matchRegion;
+            });
+
+            console.log(`Rendering ${filteredItems.length} items (Type: ${currentType}, Region: ${currentRegion})`);
+
+            filteredItems.forEach((item, index) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.style.transitionDelay = `${(index % 8) * 0.05}s`;
+                galleryItem.onclick = () => openLightbox(item);
+
+                const indicator = item.type === 'video' 
+                    ? `<div class="video-indicator"><i class="fas fa-play"></i></div>` 
+                    : '';
+
+                // Handle special characters like '#' in filenames by encoding them
+                const encodedSrc = item.src.split('/').map(part => encodeURIComponent(part)).join('/');
+
+                let mediaElement = '';
+                if (item.type === 'video') {
+                    // Use #t=0.1 for faster, more reliable thumbnailing
+                    mediaElement = `
+                        <div class="item-placeholder">
+                            <video src="${encodedSrc}#t=0.1" preload="metadata" muted playsinline 
+                                style="width: 100%; height: 100%; object-fit: cover;"
+                                onloadeddata="this.parentElement.style.background='none'"
+                                onerror="this.parentElement.innerHTML='<i class=\'fas fa-video-slash\' style=\'opacity:0.3\'></i>'">
+                            </video>
+                        </div>`;
+                } else {
+                    mediaElement = `<img class="gallery-img" src="${encodedSrc}" alt="${item.name}" loading="lazy" 
+                        onerror="this.src='https://via.placeholder.com/400x500?text=Gambar+Tidak+Tersedia'">`;
+                }
+
+                galleryItem.innerHTML = `
+                    ${indicator}
+                    ${mediaElement}
+                    <div class="gallery-info">
+                        <span class="gallery-category">${item.category}</span>
+                        <h3 class="gallery-title">${item.name}</h3>
+                    </div>
+                `;
+
+                container.appendChild(galleryItem);
+                observeItem(galleryItem);
+            });
+        }
+
+        // Reveal Observer for smoothness
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        function observeItem(item) {
+            revealObserver.observe(item);
+        }
+
+        // Media Type Logic
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Smooth transition out
+                fadeOutItems();
+                
+                setTimeout(() => {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentType = this.dataset.type;
+                    renderGallery();
+                }, 300);
+            });
+        });
+
+        // Region Filter Logic
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            // Skip the Lainnya toggle button itself for filtering logic
+            if (btn.id === 'toggleOthers') return;
+
+            btn.addEventListener('click', function() {
+                // Smooth transition out
+                fadeOutItems();
+                
+                setTimeout(() => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentRegion = this.dataset.filter;
+                    
+                    // Highlight the 'Lainnya' button if a sub-filter is selected
+                    const isSubFilter = this.closest('.sub-filters');
+                    if (isSubFilter) {
+                        document.getElementById('toggleOthers').classList.add('active');
+                    } else if (this.id !== 'toggleOthers') {
+                        document.getElementById('toggleOthers').classList.remove('active');
+                    }
+                    
+                    renderGallery();
+                }, 300);
+            });
+        });
+
+        // Toggle Others Menu
+        document.getElementById('toggleOthers').addEventListener('click', function() {
+            const container = document.getElementById('subFiltersContainer');
+            container.classList.toggle('show');
+            this.querySelector('i').className = container.classList.contains('show') 
+                ? 'fas fa-chevron-up' 
+                : 'fas fa-ellipsis-h';
+        });
+
+        function fadeOutItems() {
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(i => {
+                i.style.transitionDelay = '0s';
+                i.classList.remove('reveal');
+            });
+        }
+
+        // Lightbox Logic - Ultra Smooth
+        function openLightbox(item) {
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            
+            const encodedSrc = item.src.split('/').map(part => encodeURIComponent(part)).join('/');
+            
+            let content = '';
+            if (item.type === 'video') {
+                content = `<video src="${encodedSrc}" controls autoplay playsinline style="max-width: 95%; max-height: 80vh; box-shadow: 0 30px 60px rgba(0,0,0,0.5); border-radius: 8px;"></video>`;
+            } else {
+                content = `<img src="${encodedSrc}" style="max-width: 95%; max-height: 80vh; object-fit: contain; box-shadow: 0 30px 60px rgba(0,0,0,0.5); border-radius: 4px;">`;
+            }
+
+            modal.innerHTML = `
+                <div style="position: relative; width: 100%; max-width: 1000px; text-align: center; transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.17, 0.84, 0.44, 1);">
+                    <button id="closeL" style="position: absolute; top: -50px; right: 20px; background: none; border: none; color: white; font-size: 2.2rem; cursor: pointer; transition: 0.3s;"><i class="fas fa-times"></i></button>
+                    ${content}
+                    <div style="color: white; margin-top: 25px; animation: fadeInUp 0.6s backwards;">
+                        <h2 style="color: var(--accent); font-family: 'Playfair Display', serif; font-size: 2.4rem; margin-bottom: 5px;">${item.name}</h2>
+                        <p style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; opacity: 0.7;">${item.category}</p>
+                        <a href="https://wa.me/6281234567890?text=Halo Kak, saya mau tanya harga sewa untuk kostum: ${item.name} (${item.category})" target="_blank" class="btn" style="margin-top: 30px; padding: 15px 40px; font-size: 1.1rem; border-radius: 10px;">
+                            <i class="fab fa-whatsapp"></i> Chat WhatsApp Sekarang
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+            document.body.style.overflow = 'hidden';
+
+            // Animation start
+            setTimeout(() => {
+                modal.classList.add('active');
+                modal.querySelector('div').style.transform = 'scale(1)';
+            }, 50);
+
+            modal.onclick = (e) => {
+                if (e.target === modal || e.target.id === 'closeL' || e.target.closest('#closeL')) {
+                    modal.classList.remove('active');
+                    modal.querySelector('div').style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        modal.remove();
+                        document.body.style.overflow = 'auto';
+                    }, 400);
+                }
+            };
+        }
+
+        function updateActiveNavLink() {
+            setTimeout(() => {
+                document.querySelectorAll('.navbar-menu a, .bottom-nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === 'gallery.html') link.classList.add('active');
+                });
+            }, 200);
+        }
+    </script>
+</body>
+
+</html>
