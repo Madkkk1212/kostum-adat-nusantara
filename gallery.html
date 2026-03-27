@@ -831,7 +831,7 @@
     <section class="gallery-hero">
         <div class="container">
             <div class="gallery-hero-content">
-            <h1>Galeri Sewa Baju Adat Jambi Terlengkap</h1>
+            <h1>Sewa Baju Adat Jambi </h1>
             <p>Jelajahi koleksi terlengkap Kostum Adat Nusantara, Jas formal, dan Jasco di Jambi. Setiap item dirawat dengan standar kualitas tinggi untuk momen spesial Anda.</p>
             <button class="btn" id="heroJenisAdat" style="margin-top: 30px;">
                 <i class="fas fa-tshirt"></i> Lihat Semua Jenis Koleksi
@@ -932,7 +932,6 @@
                     // Reinitialize footer scripts
                     initFooterScripts();
                 });
-
             renderGallery();
             setupFilterListeners();
         });
@@ -1176,6 +1175,36 @@
                 });
             }, 200);
         }
+
+        function setupFilterListeners() {
+            // Already handled by existing listeners above
+        }
+
+        // Initialize Jenis Adat
+        function renderJenisAdat() {
+            const container = document.getElementById('jenisAdatContainer');
+            if (!container) return;
+            container.innerHTML = 'Loading...';
+            // Custom implementation might be needed here based on gallery-data.js
+        }
+
+        function initNavbarScripts() {
+            const btn = document.getElementById('navbarJenisAdat');
+            if (btn) {
+                btn.addEventListener('click', () => {
+                   document.getElementById('jenisAdatModal').classList.add('active');
+                });
+            }
+        }
+
+        function initFooterScripts() {
+             const btn = document.getElementById('footerJenisAdat');
+            if (btn) {
+                btn.addEventListener('click', () => {
+                   document.getElementById('jenisAdatModal').classList.add('active');
+                });
+            }
+        }81
     </script>
 </body>
 
